@@ -1,0 +1,350 @@
+{
+    "Levels": [
+        {
+            "Questions": [
+                {
+                    "type": 0,
+                    "correctAnswer": "Islamabad",
+                    "question": "What is capital of Pakistan?",
+                    "option": [
+                        {
+                            "optionName": "Islamabad"
+                        },
+                        {
+                            "optionName": "Lahore"
+                        },
+                        {
+                            "optionName": "Karachi"
+                        },
+                        {
+                            "optionName": "Multan"
+                        }
+                    ]
+                },
+                {
+                    "type": 1,
+                    "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/e4Gpia8/close-up-shot-of-an-african-lions-head_nua-16iil__550a727afff743a4e8c3ffd1ca68d508__P360.mp4",
+                    "correctAnswer": "Lion",
+                    "question": "Which Animal in video?",
+                    "option": [
+                        {
+                            "optionName": "Cat"
+                        },
+                        {
+                            "optionName": "Dog"
+                        },
+                        {
+                            "optionName": "Lion"
+                        },
+                        {
+                            "optionName": "Beer"
+                        }
+                    ]
+                },
+                {
+                    "type": 3,
+                    "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
+                    "correctAnswer": "American",
+                    "question": "Who is guy in this audio?",
+                    "option": [
+                        {
+                            "optionName": "American"
+                        },
+                        {
+                            "optionName": "Indian"
+                        },
+                        {
+                            "optionName": "Pakistani"
+                        },
+                        {
+                            "optionName": "Africian"
+                        }
+                    ]
+                },
+                {
+                    "type": 0,
+                    "correctAnswer": "Lahore",
+                    "question": "Where badshahi Mosque Located?",
+                    "option": [
+                        {
+                            "optionName": "Islamabad"
+                        },
+                        {
+                            "optionName": "Lahore"
+                        },
+                        {
+                            "optionName": "Karachi"
+                        },
+                        {
+                            "optionName": "Multan"
+                        }
+                    ]
+                },
+                {
+                    "type": 1,
+                    "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/r6uQGb9/videoblocks-chengdu-research-base-of-giant-panda-breeding-or-panda-base-in-chengdu-china-asia-wild-animal-eating-bamboo-fauna-nature-wildlife-mammal-animal-in-zoo-zoological-gardens-rescue-center_suxn__beed2b9e8b11b492ee38eff26b410401__P360.mp4",
+                    "correctAnswer": "Panda",
+                    "question": "Which Animal in video?",
+                    "option": [
+                        {
+                            "optionName": "Cat"
+                        },
+                        {
+                            "optionName": "Panda"
+                        },
+                        {
+                            "optionName": "Lion"
+                        },
+                        {
+                            "optionName": "Beer"
+                        }
+                    ]
+                },
+                {
+                    "type": 2,
+                    "url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
+                    "correctAnswer": "KFC",
+                    "question": "Guess the Restaunt name?",
+                    "option": [
+                        {
+                            "optionName": "KFC"
+                        },
+                        {
+                            "optionName": "Maisonette"
+                        },
+                        {
+                            "optionName": "Cupshup"
+                        },
+                        {
+                            "optionName": "MC Donald"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Questions": [
+                {
+                    "type": 0,
+                    "correctAnswer": "1947",
+                    "question": "What Pakistan comes in the world map?",
+                    "option": [
+                        {
+                            "optionName": "1947"
+                        },
+                        {
+                            "optionName": "1999"
+                        },
+                        {
+                            "optionName": "2016"
+                        },
+                        {
+                            "optionName": "1865"
+                        }
+                    ]
+                },
+                {
+                    "type": 1,
+                    "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/rZJIMvhmliwmde8a6/videoblocks-peacock-showing-its-tail-beautiful-bird-on-the-grass_h_2fuoy2b__10254998c69b064e648d8ab163b0a66b__P360.mp4",
+                    "correctAnswer": "Peacock",
+                    "question": "Which Bird in video have long Tail?",
+                    "option": [
+                        {
+                            "optionName": "Sparrow"
+                        },
+                        {
+                            "optionName": "Hen"
+                        },
+                        {
+                            "optionName": "Peacock"
+                        },
+                        {
+                            "optionName": "Parrot"
+                        }
+                    ]
+                },
+                {
+                    "type": 3,
+                    "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
+                    "correctAnswer": "American",
+                    "question": "Who is guy in this audio?",
+                    "option": [
+                        {
+                            "optionName": "American"
+                        },
+                        {
+                            "optionName": "Indian"
+                        },
+                        {
+                            "optionName": "Pakistani"
+                        },
+                        {
+                            "optionName": "Africian"
+                        }
+                    ]
+                },
+                {
+                    "type": 0,
+                    "correctAnswer": "Thomas Edison",
+                    "question": "who invented Light bulb?",
+                    "option": [
+                        {
+                            "optionName": "billi gates"
+                        },
+                        {
+                            "optionName": "Thomas Edison"
+                        },
+                        {
+                            "optionName": "Quaid e Azam"
+                        },
+                        {
+                            "optionName": "Allama Iqbal"
+                        }
+                    ]
+                },
+                {
+                    "type": 1,
+                    "url": "https://pic.pikbest.com/01/01/28/07q888piCmjH.mp4",
+                    "correctAnswer": "Coka Cola",
+                    "question": "Which drink is in video?",
+                    "option": [
+                        {
+                            "optionName": "Sprite"
+                        },
+                        {
+                            "optionName": "Coka Cola"
+                        },
+                        {
+                            "optionName": "Beer"
+                        },
+                        {
+                            "optionName": "Dew"
+                        }
+                    ]
+                },
+                {
+                    "type": 2,
+                    "url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
+                    "correctAnswer": "KFC",
+                    "question": "Guess the Restaunt name?",
+                    "option": [
+                        {
+                            "optionName": "KFC"
+                        },
+                        {
+                            "optionName": "Maisonette"
+                        },
+                        {
+                            "optionName": "Cupshup"
+                        },
+                        {
+                            "optionName": "MC Donald"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Questions": [
+                {
+                    "type": 0,
+                    "correctAnswer": "December 25, 1876",
+                    "question": "When Quaid e  Azam born?",
+                    "option": [
+                        {
+                            "optionName": "Sep 25, 1876"
+                        },
+                        {
+                            "optionName": "December 25, 1876"
+                        },
+                        {
+                            "optionName": "January 25, 1876"
+                        },
+                        {
+                            "optionName": "March 25, 1876"
+                        }
+                    ]
+                },
+                {
+                    "type": 1,
+                    "url": "https://img.pikbest.com/video_listen/588ku_mpeg/19/04/10/953a4bfa7337e02a2d792024b7f86eef.mp4",
+                    "correctAnswer": "Cat",
+                    "question": "Which Animal you found there ?",
+                    "option": [
+                        {
+                            "optionName": "Cat"
+                        },
+                        {
+                            "optionName": "Dog"
+                        },
+                        {
+                            "optionName": "Lion"
+                        },
+                        {
+                            "optionName": "Beer"
+                        }
+                    ]
+                },
+                {
+                    "type": 0,
+                    "correctAnswer": "Steve Jobs",
+                    "question": "Who Invente IPhone?",
+                    "option": [
+                        {
+                            "optionName": "Billo Gates"
+                        },
+                        {
+                            "optionName": "Steve Jobs"
+                        },
+                        {
+                            "optionName": "Allama Iqbal"
+                        },
+                        {
+                            "optionName": "Salman Khan"
+                        }
+                    ]
+                },
+                {
+                    "type": 2,
+                    "url": "https://upload.wikimedia.org/wikipedia/en/5/58/River_Ravi_Pakistan.jpg",
+                    "correctAnswer": "River Ravi",
+                    "question": "Which River is in Image?",
+                    "option": [
+                        {
+                            "optionName": "River Ravi"
+                        },
+                        {
+                            "optionName": "Jhelum"
+                        },
+                        {
+                            "optionName": "Chenab"
+                        },
+                        {
+                            "optionName": "Mangla"
+                        }
+                    ]
+                },
+                {
+                    "type": 3,
+                    "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
+                    "correctAnswer": "American",
+                    "question": "Who is guy in this audio?",
+                    "option": [
+                        {
+                            "optionName": "American"
+                        },
+                        {
+                            "optionName": "Indian"
+                        },
+                        {
+                            "optionName": "Pakistani"
+                        },
+                        {
+                            "optionName": "Africian"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
