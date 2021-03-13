@@ -1,23 +1,15 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
-import 'package:thequestion/apihelper/basehelper.dart';
 import 'package:thequestion/models/questionmodel.dart';
-import 'package:thequestion/screens/levels.dart';
-import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/utils/colors.dart';
-import 'package:thequestion/utils/const.dart';
 import 'package:thequestion/utils/routes.dart';
-import 'package:thequestion/utils/styles.dart';
 
 import 'homePage.dart';
 
 class ListOfQuestions extends StatefulWidget {
-  List<Questions> questions;
-  int index;
-  ListOfQuestions({this.questions, this.index});
+  final List<Questions> questions;
+  final int index;
+  final List<LevelResult> result;
+  ListOfQuestions({this.index, this.result, this.questions});
   @override
   _ListOfQuestionsState createState() => _ListOfQuestionsState();
 }
@@ -78,6 +70,33 @@ class _ListOfQuestionsState extends State<ListOfQuestions> {
                 // ),
               ],
             ),
+          ),
+          Row(
+            children: [
+              MaterialButton(
+                color: appColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                animationDuration: Duration(seconds: 2),
+                splashColor: Colors.blue[300],
+                child: Text(
+                  "Proceed to Questions",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400),
+                ),
+                onPressed: () {
+                  AppRoutes.push(
+                      context,
+                      HomePage(
+                        questions: widget.result[widget.index].questions,
+                      ));
+                },
+              )
+            ],
+            mainAxisAlignment: MainAxisAlignment.end,
           ),
         ],
       ),

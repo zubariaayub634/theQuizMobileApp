@@ -6,12 +6,10 @@ import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/apihelper/basehelper.dart';
 import 'package:thequestion/models/questionmodel.dart';
-import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/screens/question_list.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
-import 'package:thequestion/widgets/customappbar.dart';
 
 import 'coinsscreen.dart';
 
@@ -47,7 +45,7 @@ class _Levels extends State<Levels> {
   }
   //TODO: Ads Method...........code end........
 
-  var width, height,coins;
+  var width, height, coins;
   // var coins;
 
   @override
@@ -103,7 +101,7 @@ class _Levels extends State<Levels> {
               children: [
                 Padding(
                   padding:
-                  const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
+                      const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
                   child: Image.asset("assets/img/coin.png",
                       color: Colors.white,
                       width: width * .1,
@@ -168,12 +166,17 @@ class _Levels extends State<Levels> {
   Widget levelList(int index, List<LevelResult> result) {
     return GestureDetector(
       onTap: () async {
-       coins= Provider.of<DataProvider>(context, listen: false).incrementCoins();
-        AppRoutes.push(
-            context,
-            HomePage(
-              questions: result[index].questions,
-            ));
+        coins =
+            Provider.of<DataProvider>(context, listen: false).incrementCoins();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ListOfQuestions(
+              index: index,
+              result: result,
+            ),
+          ),
+        );
         interstitialAd.isLoaded;
       },
       child: Column(
