@@ -14,7 +14,7 @@ class constValues {
     height = MediaQuery.of(context).size.height * .3;
     showDialog(
         context: context,
-        child: AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           contentPadding: EdgeInsets.only(top: 10.0),
@@ -129,7 +129,7 @@ class constValues {
 
     showDialog(
         context: context,
-        child: AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           contentPadding: EdgeInsets.only(top: 10.0),
@@ -265,7 +265,7 @@ class constValues {
     height = MediaQuery.of(context).size.height;
     showDialog(
         context: context,
-        child: AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           contentPadding: EdgeInsets.only(top: 10.0),
@@ -329,7 +329,7 @@ class constValues {
     height = MediaQuery.of(context).size.height;
     showDialog(
         context: context,
-        child: AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           contentPadding: EdgeInsets.only(top: 10.0),

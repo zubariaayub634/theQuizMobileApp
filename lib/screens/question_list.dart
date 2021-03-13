@@ -23,8 +23,6 @@ class ListOfQuestions extends StatefulWidget {
 }
 
 class _ListOfQuestionsState extends State<ListOfQuestions> {
-
-
   var width, height;
   var coins;
 
@@ -39,13 +37,11 @@ class _ListOfQuestionsState extends State<ListOfQuestions> {
         backgroundColor: appColor,
         title: Text('Question Overview'),
       ),
-      body:Container(
+      body: Container(
         width: width,
         height: height,
         child: Column(
           children: [
-
-
             TextsWidget(
               texts: "What is capital of Pakistan?",
             ),
@@ -85,68 +81,70 @@ class _ListOfQuestionsState extends State<ListOfQuestions> {
       ),
     );
   }
+
   void hintDialog(BuildContext context, String hint) async {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     showDialog(
         context: context,
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: width * .8,
-            height: height * .2,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+        builder: (BuildContext context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: width * .8,
+                height: height * .2,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                          width: width * .2,
-                          height: height * .03,
-                          child: Icon(Icons.close, color: Colors.black)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: height * .01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                        },
-                        child: Icon(Icons.lightbulb, size: 50, color: appColor))
-                  ],
-                ),
-                SizedBox(
-                  height: height * .01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      hint.toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                              width: width * .2,
+                              height: height * .03,
+                              child: Icon(Icons.close, color: Colors.black)),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * .01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).pop();
+                            },
+                            child: Icon(Icons.lightbulb,
+                                size: 50, color: appColor))
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * .01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          hint.toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ));
+              ),
+            ));
   }
 }
 
@@ -242,7 +240,6 @@ class TextsWidget extends StatefulWidget {
 }
 
 class _TextsWidgetState extends State<TextsWidget> {
-
   var width, height;
   var coins;
 
@@ -255,11 +252,11 @@ class _TextsWidgetState extends State<TextsWidget> {
       onTap: () async {
         Provider.of<DataProvider>(context, listen: false).setCounterZero();
         AppRoutes.push(
-            context,
-            Levels(),
-            // HomePage(
-            //   questions: result[index].questions,
-            // )
+          context,
+          Levels(),
+          // HomePage(
+          //   questions: result[index].questions,
+          // )
         );
       },
       child: SizedBox(
@@ -270,7 +267,8 @@ class _TextsWidgetState extends State<TextsWidget> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("${widget.texts}",
+                  Text(
+                    "${widget.texts}",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w400,
@@ -285,5 +283,3 @@ class _TextsWidgetState extends State<TextsWidget> {
     );
   }
 }
-
-
