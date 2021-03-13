@@ -1,111 +1,56 @@
-import 'package:better_player/better_player.dart';
-import 'package:better_player/better_player.dart';
+import 'package:audioplayerui/audioplayerui.dart';
+import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:thequestion/screens/audioquestion.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/screens/homePage.dart';
-import 'package:thequestion/screens/textquestion.dart';
 import 'package:thequestion/utils/colors.dart';
-import 'package:thequestion/utils/const.dart';
-import 'package:thequestion/utils/routes.dart';
 import 'package:thequestion/utils/styles.dart';
-import 'package:thequestion/widgets/bottomnav.dart';
-import 'package:thequestion/widgets/customappbar.dart';
 
-class VideoQuestions extends StatefulWidget {
-  String url;
-  VideoQuestions({this.url});
+class AudioQuestion extends StatefulWidget {
+  final String url;
+  AudioQuestion({this.url});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _VideoQuestions();
+    return _AudioQuestion();
   }
 }
 
-class _VideoQuestions extends State<VideoQuestions> {
+class _AudioQuestion extends State<AudioQuestion> {
   var width, height;
+  var coins;
 
-  BetterPlayerController _betterPlayerController;
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-
-    super.dispose();
-  }
-
+  AudioPlayerController audioPlayerController = AudioPlayerController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
 
-    BetterPlayerDataSource betterPlayerDataSource =
-        BetterPlayerDataSource(BetterPlayerDataSourceType.network, widget.url);
-    _betterPlayerController = BetterPlayerController(
-        BetterPlayerConfiguration(),
-        betterPlayerDataSource: betterPlayerDataSource);
+  @override
+  void dispose() {
+    audioPlayerController.audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    ChewieAudioController _chewieAudioController;
+
     // TODO: implement build
     return Container(
-      width: width,
-      height: height * .33,
-      child: Column(
-        children: [
-          SizedBox(
-            height: height * .06,
-          ),
-          // _questionContainer(),
-          // SizedBox(
-          //   height: height * .02,
-          // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: width * .7,
-                height: height * .25,
-                child: BetterPlayer(
-                  controller: _betterPlayerController,
-                ),
-              ),
-            ],
-          ),
-          // SizedBox(
-          //   height: height * .02,
-          // ),
-          // _answerContainer("Cat", "a"),
-          // _answerContainer("Dog", "b"),
-          // _answerContainer("Deer", "c"),
-          // _answerContainer("Lion", "d"),
-          // _btnContainer(),
-        ],
-      ),
-    );
-  }
-
-  Widget _questionContainer() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          // color: Colors.black,
-          margin: EdgeInsets.only(
-            top: 10,
-            left: 20,
-            right: 20,
-          ),
-          // width: 200,
-          child: Text(
-            "What is the animal in video",
-            style: boldTextStyle,
-          ),
-        ),
-      ],
-    );
+        width: width * .8,
+        height: height * .25,
+        child: AudioPlayerView(
+          audioPlayerController: audioPlayerController,
+          trackTitle: "test",
+          trackUrl: widget.url,
+          simpleDesign: false,
+        ));
   }
 
   Widget _answerContainer(String value, String options) {
@@ -184,11 +129,8 @@ class _VideoQuestions extends State<VideoQuestions> {
         // await _controller.reverse().then((value) => () {
         //       _controller.dispose();
         //     });
-        if (value == "Cat") {
-          constValues().noenoughCoinDialog(context);
-          //HomePage.setLocalView(context, 2);
-        } else if (value == "Dog") {
-          AppRoutes.push(context, textquestion());
+        if (value == "Doha") {
+          HomePage.setLocalView(context, 2);
         } else {
           HomePage.setLocalView(context, 3);
         }
@@ -196,7 +138,30 @@ class _VideoQuestions extends State<VideoQuestions> {
     );
   }
 
+  Widget _questionContainer() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          // color: Colors.black,
+          margin: EdgeInsets.only(
+            top: 10,
+            left: 20,
+            right: 20,
+          ),
+          // width: 200,
+          child: Text(
+            "What is the voice in Audio",
+            textAlign: TextAlign.center,
+            style: boldTextStyle,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _btnContainer() {
+    coins = Provider.of<DataProvider>(context, listen: false).decrementCoin;
     return InkWell(
       child: Container(
         margin: EdgeInsets.only(top: 40),
@@ -221,7 +186,41 @@ class _VideoQuestions extends State<VideoQuestions> {
         ),
       ),
       onTap: () async {
-        AppRoutes.push(context, AudioQuestion());
+        width = MediaQuery.of(context).size.width * .8;
+        height = MediaQuery.of(context).size.height * .3;
+        coins = Provider.of<DataProvider>(context, listen: false).decrementCoin;
+
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "That's Wrong!\nTry it after 30 minutes.",
+          style: AlertStyle(
+            titleStyle: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          content: Container(),
+          buttons: [
+            DialogButton(
+                color: appColor,
+                child: Center(
+                  child: Text(
+                    "Next Question",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                })
+          ],
+        ).show();
+        setState(() {
+          Provider.of<DataProvider>(context, listen: false).decrementCoin();
+        });
+        // AppRoutes.push(context, AudioQuestion());
         // await _controller.reverse().then((value) => () {
         //       _controller.dispose();
         //     });

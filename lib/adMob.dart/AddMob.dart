@@ -1,8 +1,4 @@
-  import 'dart:io';
-
-
-import 'package:admob_flutter/admob_flutter.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
 // String getAppId() {
 //   if (Platform.isIOS) {
@@ -21,31 +17,32 @@ import 'package:flutter/material.dart';
 //   return null;
 // }
 
-  String getAppTestId() {
-    if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4411468910';
-    } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712';
-    }
-    return null;
+String getAppTestId() {
+  if (Platform.isIOS) {
+    return 'ca-app-pub-3940256099942544/4411468910';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-3940256099942544/1033173712';
   }
-  String getInterstitialAdUnitId() {
-    if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4411468910';
-    } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712';
-    }
-    return null;
-  }
-  String getRewardBasedVideoAdUnitId() {
-    if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/1712485313';
-    } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/5224354917';
-    }
-    return null;
-  }
+  return null;
+}
 
+String getInterstitialAdUnitId() {
+  if (Platform.isIOS) {
+    return 'ca-app-pub-3940256099942544/4411468910';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-3940256099942544/1033173712';
+  }
+  return null;
+}
+
+String getRewardBasedVideoAdUnitId() {
+  if (Platform.isIOS) {
+    return 'ca-app-pub-3940256099942544/1712485313';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-3940256099942544/5224354917';
+  }
+  return null;
+}
 
 // class MyBanner extends StatelessWidget{
 //   var size;
@@ -65,7 +62,6 @@ import 'package:flutter/material.dart';
 //   }
 //
 // }
-
 
 // class MyInterstitial extends StatelessWidget{
 //     var size;

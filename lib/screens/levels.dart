@@ -11,7 +11,7 @@ import 'package:thequestion/screens/question_list.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
-import 'coinsscreen.dart';
+import 'coinsScreen.dart';
 
 class Levels extends StatefulWidget {
   @override
@@ -117,7 +117,7 @@ class _Levels extends State<Levels> {
                     ),
                     Text(
                       // "$coins",
-                      "${coins}",
+                      "$coins",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(

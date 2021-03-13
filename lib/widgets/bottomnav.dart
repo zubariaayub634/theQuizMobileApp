@@ -3,10 +3,10 @@ import 'package:thequestion/utils/const.dart';
 import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 
-class bottomNav extends StatelessWidget {
-  String hint;
+class BottomNavigation extends StatelessWidget {
+  final String hint;
 
-  bottomNav({this.hint});
+  BottomNavigation({this.hint});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,7 +20,7 @@ class bottomNav extends StatelessWidget {
             GestureDetector(
                 onTap: () {
                   Provider.of<DataProvider>(context, listen: false).decrementCoin();
-                  constValues().hintDialog(context, hint);
+                  ConstValues().hintDialog(context, hint);
                 },
                 child: Icon(
                   Icons.lightbulb_outline_rounded,

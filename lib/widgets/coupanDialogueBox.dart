@@ -2,13 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/styles.dart';
 
-class CoupanDialogeBox {
-  void showDialogeBox(
+class CouponDialogueBox {
+  void showDialogueBox(
     BuildContext context,
-    String voucherdetail,
+    String voucherDetail,
     String profileImage,
   ) {
     showDialog(
@@ -54,7 +53,7 @@ class CoupanDialogeBox {
                     child: Container(
                       margin: EdgeInsets.all(30),
                       child: Text(
-                        voucherdetail,
+                        voucherDetail,
                         style: boldTextStyle,
                       ),
                     ),

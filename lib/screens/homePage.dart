@@ -5,9 +5,9 @@ import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/models/questionmodel.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
-import 'package:thequestion/screens/QuestionsScreen.dart';
+import 'package:thequestion/screens/questionsScreen.dart';
 import 'package:thequestion/screens/SubmitAnswer.dart';
-import 'package:thequestion/screens/VendorOffers.dart';
+import 'package:thequestion/screens/vendorOffers.dart';
 import 'package:thequestion/screens/resultScreen.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: coins == 0
           ? NotEnoughCoins()
-          : bottomNav(
+          : BottomNavigation(
               hint: widget.questions[index].correctAnswer,
             ),
       // appBar: UpperBar(
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Text(
                       // "$coins",
-                      "${coins}",
+                      "$coins",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(

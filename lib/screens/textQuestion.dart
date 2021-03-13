@@ -3,15 +3,15 @@ import 'package:thequestion/screens/question_list.dart';
 import 'package:thequestion/utils/styles.dart';
 import 'package:thequestion/widgets/customappbar.dart';
 
-class textquestion extends StatefulWidget {
+class TextQuestion extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _textquestion();
+    return _TextQuestion();
   }
 }
 
-class _textquestion extends State<textquestion> {
+class _TextQuestion extends State<TextQuestion> {
   var width, height;
 
   @override
@@ -28,7 +28,6 @@ class _textquestion extends State<textquestion> {
         height: height,
         child: Column(
           children: [
-
             Container(
                 padding: EdgeInsets.only(top: 10),
                 child: RaisedButton(
@@ -39,9 +38,11 @@ class _textquestion extends State<textquestion> {
                   animationDuration: Duration(seconds: 2),
                   splashColor: Colors.blue[300],
                   child: Text("Question Overview"),
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ListOfQuestions()),
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ListOfQuestions()),
                     );
                   },
                 )),

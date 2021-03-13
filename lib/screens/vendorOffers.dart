@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/styles.dart';

@@ -1,15 +1,10 @@
-import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
-import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/utils/colors.dart';
-import 'package:thequestion/utils/routes.dart';
 
-class constValues {
+class ConstValues {
   var width, height;
   var coins;
-  coinsbuyDialog(BuildContext context) async {
+  coinsBuyDialog(BuildContext context) async {
     width = MediaQuery.of(context).size.width * .8;
     height = MediaQuery.of(context).size.height * .3;
     showDialog(

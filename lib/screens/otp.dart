@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/routes/route_constants.dart';
@@ -12,7 +11,7 @@ class Otp extends StatefulWidget {
 }
 
 class _OtpState extends State<Otp> {
- final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var value1;
   var value2;
   var value3;
@@ -38,7 +37,7 @@ class _OtpState extends State<Otp> {
             Container(
               margin: EdgeInsets.only(top: 40),
               child: Text(
-               getTranslated(context, 'otp_sent'),
+                getTranslated(context, 'otp_sent'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 18,
@@ -62,7 +61,7 @@ class _OtpState extends State<Otp> {
               margin: EdgeInsets.only(top: 10),
               child: InkWell(
                 child: Text(
-                 getTranslated(context, 'resend'),
+                  getTranslated(context, 'resend'),
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontSize: 18,
@@ -77,10 +76,10 @@ class _OtpState extends State<Otp> {
               height: MediaQuery.of(context).size.height / 13.5,
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.only(top: 60),
-             decoration: BoxDecoration(
-                           color: appColor,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
+              decoration: BoxDecoration(
+                color: appColor,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
               child: InkWell(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +93,7 @@ class _OtpState extends State<Otp> {
                     ),
                   ],
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.pushNamed(context, homePageRoute);
                 },
               ),
@@ -114,9 +113,8 @@ class _OtpState extends State<Otp> {
         style: TextStyle(
             fontWeight: FontWeight.bold, fontSize: 23, color: Colors.black),
         onChanged: (value) {
-          variable != 'value4' && value != ''
-              ? FocusScope.of(context).nextFocus()
-              : null;
+          if (variable != 'value4' && value != '')
+            FocusScope.of(context).nextFocus();
           setState(() {
             variable = value;
           });

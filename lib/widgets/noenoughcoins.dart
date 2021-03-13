@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:thequestion/screens/coinsscreen.dart';
-import 'package:thequestion/utils/const.dart';
-import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/screens/coinsScreen.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
 class NotEnoughCoins extends StatelessWidget {
-  var width, height;
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    // TODO: implement build
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Container(
       width: width * .8,
       height: height * .3,

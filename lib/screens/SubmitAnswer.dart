@@ -2,7 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/screens/homePage.dart';
-import 'package:thequestion/screens/videoquestion.dart';
+import 'package:thequestion/screens/videoQuestion.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 import 'package:thequestion/utils/styles.dart';

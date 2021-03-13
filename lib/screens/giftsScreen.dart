@@ -131,7 +131,7 @@ class _GiftScreenState extends State<GiftScreen> {
                   ),
                   onTap: () {
                     // setView(1);
-                    CoupanDialogeBox().showDialogeBox(context,  _winningList[index].coupanName,  _winningList[index].coupanImage);
+                    CouponDialogueBox().showDialogueBox(context,  _winningList[index].coupanName,  _winningList[index].coupanImage);
                   },
                 );
               }),

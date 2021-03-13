@@ -2,7 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
-import 'package:thequestion/screens/coinsscreen.dart';
+import 'package:thequestion/screens/coinsScreen.dart';
 import 'package:thequestion/screens/levels.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';

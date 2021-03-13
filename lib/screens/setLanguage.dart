@@ -75,22 +75,21 @@ class _SetLanguageState extends State<SetLanguage> {
         ),
       ),
       onTap: () {
-        value == "english" && !status
-            ? setState(() {
-                lang = 1;
-                _changeLanguage('en');
-              })
-            : value == "arabic" && !status
-                ? setState(() {
-                    lang = 2;
-                    _changeLanguage('ar');
-                  })
-                : value == "english" && status
-                    ? setState(() {
-                        lang = 1;
-                        _changeLanguage('en');
-                      })
-                    : null;
+        if (value == "english" && !status)
+          setState(() {
+            lang = 1;
+            _changeLanguage('en');
+          });
+        else if (value == "arabic" && !status)
+          setState(() {
+            lang = 2;
+            _changeLanguage('ar');
+          });
+        else if (value == "english" && status)
+          setState(() {
+            lang = 1;
+            _changeLanguage('en');
+          });
         Navigator.pushNamed(context, signInRoute);
       },
     );

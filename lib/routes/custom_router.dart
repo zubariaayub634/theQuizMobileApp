@@ -5,11 +5,11 @@ import 'package:thequestion/screens/SubmitAnswer.dart';
 import 'package:thequestion/screens/createPremiumAccount.dart';
 import 'package:thequestion/screens/giftsScreen.dart';
 import 'package:thequestion/screens/homePage.dart';
-import 'package:thequestion/screens/oTP.dart';
+import 'package:thequestion/screens/otp.dart';
 import 'package:thequestion/screens/resultScreen.dart';
 import 'package:thequestion/screens/setLanguage.dart';
 import 'package:thequestion/screens/signIn.dart';
-import 'package:thequestion/screens/splashscreen.dart';
+import 'package:thequestion/screens/splashScreen.dart';
 
 class CustomRouter {
   static Route<dynamic> generatedRoute(RouteSettings settings) {

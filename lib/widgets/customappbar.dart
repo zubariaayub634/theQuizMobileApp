@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
-import 'package:thequestion/screens/coinsscreen.dart';
+import 'package:thequestion/screens/coinsScreen.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
@@ -93,7 +93,7 @@ class _UpperBarState extends State<UpperBar>with SingleTickerProviderStateMixin 
                     ),
                     Text(
                        // "$coins",
-                       "${coins}",
+                       "$coins",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(

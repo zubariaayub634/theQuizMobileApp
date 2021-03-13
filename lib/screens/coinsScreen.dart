@@ -2,10 +2,8 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/utils/colors.dart';
-import 'package:thequestion/utils/const.dart';
 import 'package:thequestion/widgets/customappbar.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 
 class Coins extends StatefulWidget {
