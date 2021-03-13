@@ -2,6 +2,7 @@ import 'package:audioplayerui/audioplayerui.dart';
 import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/utils/colors.dart';
@@ -188,7 +189,37 @@ class _AudioQuestion extends State<AudioQuestion> {
         ),
       ),
       onTap: () async {
-        constValues().wrongAnswerDialog(context);
+        width = MediaQuery.of(context).size.width * .8;
+        height = MediaQuery.of(context).size.height * .3;
+        coins = Provider.of<DataProvider>(context, listen: false).decrementCoin;
+
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "That's Wrong!\nTry it after 30 minutes.",
+          style: AlertStyle(
+            titleStyle: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          content: Container(),
+          buttons: [
+            DialogButton(
+                color: appColor,
+                child: Center(
+                  child: Text(
+                    "Next Question",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                })
+          ],
+        ).show();
         setState(() {
           Provider.of<DataProvider>(context, listen: false).decrementCoin;
         });

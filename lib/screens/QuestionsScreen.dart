@@ -2,6 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/models/UserModel.dart';
@@ -41,7 +42,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       adUnitId: getInterstitialAdUnitId(),
       listener: (AdmobAdEvent event, Map<String, dynamic> args) {
         if (event == AdmobAdEvent.closed) interstitialAd.load();
-
       },
     );
     interstitialAd.load();
@@ -54,8 +54,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   }
 
   //TODO: Ads Method...........code end........
-
-
 
   // @override
   // void initState() {
@@ -76,13 +74,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     // int ind = Provider.of<DataProvider>(context, listen: false).currentIndex;
     coins = Provider.of<DataProvider>(context, listen: false).decrementCoin();
-    return  Container(
+    return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
         //  mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Container(
               padding: EdgeInsets.only(top: 5),
               child: RaisedButton(
@@ -95,78 +92,81 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 child: Text("Question Overview"),
                 onPressed: () {
                   Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => ListOfQuestions()),
+                    context,
+                    MaterialPageRoute(builder: (context) => ListOfQuestions()),
                   );
                 },
               )),
 
           widget.questions[widget.index].type == 0
               ? _questionContainer(
-              widget.questions[widget.index].question.toString())
+                  widget.questions[widget.index].question.toString())
               : widget.questions[widget.index].type == 1
-              ? Column(
-            children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * .05),
-              _questionContainer(
-                  widget.questions[widget.index].question.toString()),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * .33,
-                child: VideoQuestions(
-                  url: widget.questions[widget.index].url,
-                ),
-              ),
-            ],
-          )
-              : widget.questions[widget.index].type == 3
-              ? Column(
-            children: [
-              SizedBox(
-                  height:
-                  MediaQuery.of(context).size.height * .008),
-              _questionContainer(widget
-                  .questions[widget.index].question
-                  .toString()),
-
-              AudioQuestion(
-                url: widget.questions[widget.index].url,
-              ),
-            ],
-          )
-              : Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 3,
-                  decoration: BoxDecoration(
-                      color: lighAppColor.withOpacity(0.2),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      )),
-                  child: Center(
-                      child: Image(
-                        image: NetworkImage(
-                            widget.questions[widget.index].url),
-                        fit: BoxFit.fill,
-                      ))),
-              _questionContainer(
-                widget.questions[widget.index].question.toString(),
-              ),
-            ],
-          ),
+                  ? Column(
+                      children: [
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * .05),
+                        _questionContainer(
+                            widget.questions[widget.index].question.toString()),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * .33,
+                          child: VideoQuestions(
+                            url: widget.questions[widget.index].url,
+                          ),
+                        ),
+                      ],
+                    )
+                  : widget.questions[widget.index].type == 3
+                      ? Column(
+                          children: [
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * .008),
+                            _questionContainer(widget
+                                .questions[widget.index].question
+                                .toString()),
+                            AudioQuestion(
+                              url: widget.questions[widget.index].url,
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                                margin: EdgeInsets.all(20),
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                height: MediaQuery.of(context).size.height / 3,
+                                decoration: BoxDecoration(
+                                    color: lighAppColor.withOpacity(0.2),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    )),
+                                child: Center(
+                                    child: Image(
+                                  image: NetworkImage(
+                                      widget.questions[widget.index].url),
+                                  fit: BoxFit.fill,
+                                ))),
+                            _questionContainer(
+                              widget.questions[widget.index].question
+                                  .toString(),
+                            ),
+                          ],
+                        ),
 
           Expanded(
               child: ListView.builder(
-                itemBuilder: (context, int index) {
-                  return _answerContainer(
-                      widget.questions[widget.index].options[index].optionName.toString(),
-                      index, widget.questions[widget.index].correctAnswer,
-                  );
-                },
-                itemCount: widget.questions[widget.index].options.length,
-              )),
+            itemBuilder: (context, int index) {
+              return _answerContainer(
+                widget.questions[widget.index].options[index].optionName
+                    .toString(),
+                index,
+                widget.questions[widget.index].correctAnswer,
+              );
+            },
+            itemCount: widget.questions[widget.index].options.length,
+          )),
 
           // _answerContainer("Al Wakrah", "b"),
           // _answerContainer("Doha", "c"),
@@ -249,27 +249,71 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           ),
         ],
       ),
-
       onTap: () async {
         if (widget.index == (widget.questions.length - 1)) {
           // Provider.of<DataProvider>(context, listen: false).setCounterZero();
           AppRoutes.makeFirst(context, PlayScreen());
         } else {
-
           if (value.toString() != correctAnswer.toString()) {
-            constValues().wrongAnswerDialog(context);
+            width = MediaQuery.of(context).size.width * .8;
+            height = MediaQuery.of(context).size.height * .3;
+            coins =
+                Provider.of<DataProvider>(context, listen: false).decrementCoin;
+
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: "That's Wrong!\nTry it after 30 minutes.",
+              style: AlertStyle(
+                titleStyle: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              content: Container(),
+              buttons: [
+                DialogButton(
+                    color: appColor,
+                    child: Center(
+                      child: Text(
+                        "Next Question",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        coins =
+                            Provider.of<DataProvider>(context, listen: false)
+                                .incrementCounter();
+                        AppRoutes.push(
+                            context,
+                            HomePage(
+                              questions: widget.questions,
+                            ));
+
+                        // User.userData.index = User.userData.index + 1;
+                      });
+                    })
+              ],
+            ).show();
+
             var cron = new Cron();
             cron.schedule(new Schedule.parse('*/30 * * * *'), () async {
               print('every three minutes');
               setState(() {
-                coins =  Provider.of<DataProvider>(context, listen: false).decrementCoin();
+                coins = Provider.of<DataProvider>(context, listen: false)
+                    .decrementCoin();
               });
             });
-
           } else {
             // Navigator.of(context).pop();
             setState(() {
-             coins =  Provider.of<DataProvider>(context, listen: false).incrementCounter();
+              coins = Provider.of<DataProvider>(context, listen: false)
+                  .incrementCounter();
               AppRoutes.push(
                   context,
                   HomePage(
@@ -280,7 +324,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             });
           }
         }
-        if (widget.index == (widget.questions.length - 4) ) {
+        if (widget.index == (widget.questions.length - 4)) {
           // await interstitialAd.load();
           interstitialAd.show();
         } else {
@@ -300,10 +344,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     );
   }
 
-
   Widget _questionContainer(String text) {
     return Padding(
-      padding: EdgeInsets.only(left: 10,top: 10.0, right: 10),
+      padding: EdgeInsets.only(left: 10, top: 10.0, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
