@@ -121,7 +121,7 @@ class constValues {
           ),
         ));
   }
-  
+
   void hintDialog(BuildContext context, String hint) async {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;

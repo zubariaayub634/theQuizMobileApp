@@ -37,47 +37,49 @@ class _ListOfQuestionsState extends State<ListOfQuestions> {
         backgroundColor: appColor,
         title: Text('Question Overview'),
       ),
-      body: Container(
-        width: width,
-        height: height,
-        child: Column(
-          children: [
-            TextsWidget(
-              texts: "What is capital of Pakistan?",
-            ),
-            TextsWidget(
-              texts: "Which Animal in video?",
-            ),
-            TextsWidget(
-              texts: "Who is guy in this audio?",
-            ),
-            TextsWidget(
-              texts: "Where badshahi Mosque Located?",
-            ),
-            TextsWidget(
-              texts: "Which Animal in video?",
-            ),
-            TextsWidget(
-              texts: "What is capital of Pakistan?",
-            ),
-            // TextsWidget(
-            //   texts: "Where badshahi Mosque Located?",
-            // ),
-            // TextsWidget(
-            //   texts: "Where badshahi Mosque Located?",
-            // ),
-            // child: ListView.builder(
-            //   itemBuilder: (context, int index) {
-            //     return levelList(index, snapshot.data);
-            //   },
-            //   itemCount: snapshot.data.length,
-            // ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                TextsWidget(
+                  texts: "What is capital of Pakistan?",
+                ),
+                TextsWidget(
+                  texts: "Which Animal in video?",
+                ),
+                TextsWidget(
+                  texts: "Who is guy in this audio?",
+                ),
+                TextsWidget(
+                  texts: "Where badshahi Mosque Located?",
+                ),
+                TextsWidget(
+                  texts: "Which Animal in video?",
+                ),
+                TextsWidget(
+                  texts: "What is capital of Pakistan?",
+                ),
+                // TextsWidget(
+                //   texts: "Where badshahi Mosque Located?",
+                // ),
+                // TextsWidget(
+                //   texts: "Where badshahi Mosque Located?",
+                // ),
+                // child: ListView.builder(
+                //   itemBuilder: (context, int index) {
+                //     return levelList(index, snapshot.data);
+                //   },
+                //   itemCount: snapshot.data.length,
+                // ),
 
-            // TextsWidget(
-            //   texts: "What is capital of Pakistan?",
-            // ),
-          ],
-        ),
+                // TextsWidget(
+                //   texts: "What is capital of Pakistan?",
+                // ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -248,38 +250,26 @@ class _TextsWidgetState extends State<TextsWidget> {
     // TODO: implement build
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return GestureDetector(
-      onTap: () async {
-        Provider.of<DataProvider>(context, listen: false).setCounterZero();
-        AppRoutes.push(
-          context,
-          Levels(),
-          // HomePage(
-          //   questions: result[index].questions,
-          // )
-        );
-      },
-      child: SizedBox(
-        child: Card(
-            elevation: 3.0,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "${widget.texts}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w400,
-                    ),
+    return SizedBox(
+      child: Card(
+          elevation: 3.0,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${widget.texts}",
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
-            )),
-        width: width * 0.99,
-        height: height * 0.1,
-      ),
+                ),
+              ],
+            ),
+          )),
+      width: width * 0.99,
+      height: height * 0.1,
     );
   }
 }
