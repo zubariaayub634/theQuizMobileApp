@@ -1,34 +1,25 @@
 import 'dart:ui';
-
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
-import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/localization/language_constants.dart';
-import 'package:thequestion/models/UserModel.dart';
 import 'package:thequestion/models/questionmodel.dart';
-import 'package:thequestion/routes/route_constants.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
 import 'package:thequestion/screens/QuestionsScreen.dart';
 import 'package:thequestion/screens/SubmitAnswer.dart';
 import 'package:thequestion/screens/VendorOffers.dart';
-import 'package:thequestion/screens/levels.dart';
 import 'package:thequestion/screens/resultScreen.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 import 'package:thequestion/widgets/bottomnav.dart';
-import 'package:thequestion/utils/const.dart';
-import 'package:thequestion/widgets/customappbar.dart';
 import 'package:thequestion/widgets/noenoughcoins.dart';
-import '../main.dart';
 import 'coinsscreen.dart';
 
 class HomePage extends StatefulWidget {
-
-  List<Questions> questions;
-  HomePage({this.questions,});
+  final List<Questions> questions;
+  HomePage({
+    this.questions,
+  });
 
   static void setLocalView(BuildContext context, int value) {
     _HomePageState state = context.findAncestorStateOfType<_HomePageState>();
@@ -40,14 +31,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   String language;
   int view = 0;
   setView(value) {
     setState(() {
       view = value;
-
     });
   }
 
@@ -65,40 +53,37 @@ class _HomePageState extends State<HomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-     coins = Provider.of<DataProvider>(context, listen: false).getCoins;
+    coins = Provider.of<DataProvider>(context, listen: false).getCoins;
     int index = Provider.of<DataProvider>(context, listen: false).currentIndex;
 
     print("current index" + index.toString());
     print("pending coins: " + coins.toString());
 
     return Scaffold(
-
       bottomNavigationBar: coins == 0
           ? NotEnoughCoins()
-          : bottomNav(hint: widget.questions[index].correctAnswer,),
+          : bottomNav(
+              hint: widget.questions[index].correctAnswer,
+            ),
       // appBar: UpperBar(
       //   barName: "Questions",
       // ),
 
-     appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: appColor,
         leading: InkWell(
             onTap: () {
-              AppRoutes.push(context, Levels());
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => Levels()),
-              // );
+              Navigator.of(context).pop();
             },
             child: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )),
-               // leading: BackButton(
-               //   onPressed: (){
-               //     AppRoutes.push(context, Levels());
-               //   },
-               // ),
+        // leading: BackButton(
+        //   onPressed: (){
+        //     AppRoutes.push(context, Levels());
+        //   },
+        // ),
         centerTitle: true,
         title: Text(
           "Question",
@@ -113,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Padding(
                   padding:
-                  const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
+                      const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
                   child: Image.asset("assets/img/coin.png",
                       color: Colors.white,
                       width: width * .1,

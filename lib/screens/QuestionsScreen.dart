@@ -9,18 +9,15 @@ import 'package:thequestion/models/UserModel.dart';
 import 'package:thequestion/models/questionmodel.dart';
 import 'package:thequestion/screens/audioquestion.dart';
 import 'package:thequestion/screens/homePage.dart';
-import 'package:thequestion/screens/levels.dart';
-import 'package:thequestion/screens/question_list.dart';
 import 'package:thequestion/screens/videoquestion.dart';
 import 'package:thequestion/utils/colors.dart';
-import 'package:thequestion/utils/const.dart';
 import 'package:thequestion/utils/routes.dart';
 import 'package:thequestion/utils/styles.dart';
 import 'package:thequestion/screens/playscreen.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  List<Questions> questions;
-  int index;
+  final List<Questions> questions;
+  final int index;
   QuestionsScreen({this.questions, this.index});
 
   @override
@@ -80,24 +77,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       child: Column(
         //  mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-              padding: EdgeInsets.only(top: 5),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.black),
-                ),
-                animationDuration: Duration(seconds: 2),
-                splashColor: Colors.blue[300],
-                child: Text("Question Overview"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ListOfQuestions()),
-                  );
-                },
-              )),
-
           widget.questions[widget.index].type == 0
               ? _questionContainer(
                   widget.questions[widget.index].question.toString())
