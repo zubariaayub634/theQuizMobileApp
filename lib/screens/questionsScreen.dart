@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
-import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/audioQuestion.dart';
 import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/screens/videoQuestion.dart';
@@ -15,9 +14,9 @@ import 'package:thequestion/utils/styles.dart';
 import 'package:thequestion/screens/playscreen.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  final List<Question> questions;
-  final int index;
-  QuestionsScreen({this.questions, this.index});
+  final int questionIndex;
+  final int levelIndex;
+  QuestionsScreen({this.questionIndex, this.levelIndex});
 
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();
@@ -75,36 +74,76 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       child: Column(
         //  mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          widget.questions[widget.index].type == 0
+          Provider.of<DataProvider>(context, listen: false)
+                      .gameModel
+                      .levels[widget.levelIndex]
+                      .questions[widget.questionIndex]
+                      .type ==
+                  0
               ? _questionContainer(
-                  widget.questions[widget.index].question.toString())
-              : widget.questions[widget.index].type == 1
+                  Provider.of<DataProvider>(context, listen: false)
+                      .gameModel
+                      .levels[widget.levelIndex]
+                      .questions[widget.questionIndex]
+                      .question
+                      .toString())
+              : Provider.of<DataProvider>(context, listen: false)
+                          .gameModel
+                          .levels[widget.levelIndex]
+                          .questions[widget.questionIndex]
+                          .type ==
+                      1
                   ? Column(
                       children: [
                         SizedBox(
                             height: MediaQuery.of(context).size.height * .05),
                         _questionContainer(
-                            widget.questions[widget.index].question.toString()),
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .question
+                                .toString()),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * .33,
                           child: VideoQuestions(
-                            url: widget.questions[widget.index].url,
+                            url: Provider.of<DataProvider>(context,
+                                    listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .url,
                           ),
                         ),
                       ],
                     )
-                  : widget.questions[widget.index].type == 3
+                  : Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[widget.questionIndex]
+                              .type ==
+                          3
                       ? Column(
                           children: [
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * .008),
-                            _questionContainer(widget
-                                .questions[widget.index].question
+                            _questionContainer(Provider.of<DataProvider>(
+                                    context,
+                                    listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .question
                                 .toString()),
                             AudioQuestion(
-                              url: widget.questions[widget.index].url,
+                              url: Provider.of<DataProvider>(context,
+                                      listen: false)
+                                  .gameModel
+                                  .levels[widget.levelIndex]
+                                  .questions[widget.questionIndex]
+                                  .url,
                             ),
                           ],
                         )
@@ -121,28 +160,58 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                     )),
                                 child: Center(
                                     child: Image(
-                                  image: NetworkImage(
-                                      widget.questions[widget.index].url),
+                                  image: NetworkImage(Provider.of<DataProvider>(
+                                          context,
+                                          listen: false)
+                                      .gameModel
+                                      .levels[widget.levelIndex]
+                                      .questions[widget.questionIndex]
+                                      .url),
                                   fit: BoxFit.fill,
                                 ))),
                             _questionContainer(
-                              widget.questions[widget.index].question
+                              Provider.of<DataProvider>(context, listen: false)
+                                  .gameModel
+                                  .levels[widget.levelIndex]
+                                  .questions[widget.questionIndex]
+                                  .question
                                   .toString(),
                             ),
                           ],
                         ),
-
+          (Provider.of<DataProvider>(context, listen: false)
+                  .gameModel
+                  .levels[widget.levelIndex]
+                  .questions[widget.questionIndex]
+                  .lockedTill
+                  .isAfter(DateTime.now()))
+              ? Text("blocked")
+              : Container(),
           Expanded(
               child: ListView.builder(
             itemBuilder: (context, int index) {
               return _answerContainer(
-                widget.questions[widget.index].options[index].optionName
+                Provider.of<DataProvider>(context, listen: false)
+                    .gameModel
+                    .levels[widget.levelIndex]
+                    .questions[widget.questionIndex]
+                    .options[index]
+                    .optionName
                     .toString(),
                 index,
-                widget.questions[widget.index].correctAnswer,
+                Provider.of<DataProvider>(context, listen: false)
+                    .gameModel
+                    .levels[widget.levelIndex]
+                    .questions[widget.questionIndex]
+                    .correctAnswer,
               );
             },
-            itemCount: widget.questions[widget.index].options.length,
+            itemCount: Provider.of<DataProvider>(context, listen: false)
+                .gameModel
+                .levels[widget.levelIndex]
+                .questions[widget.questionIndex]
+                .options
+                .length,
           )),
 
           // _answerContainer("Al Wakrah", "b"),
@@ -227,7 +296,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         ],
       ),
       onTap: () async {
-        if (widget.index == (widget.questions.length - 1)) {
+        if (widget.questionIndex ==
+            (Provider.of<DataProvider>(context, listen: false)
+                    .gameModel
+                    .levels[widget.levelIndex]
+                    .questions
+                    .length -
+                1)) {
           // Provider.of<DataProvider>(context, listen: false).setCounterZero();
           AppRoutes.makeFirst(context, PlayScreen());
         } else {
@@ -235,7 +310,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             width = MediaQuery.of(context).size.width * .8;
             height = MediaQuery.of(context).size.height * .3;
             Provider.of<DataProvider>(context, listen: false).decrementCoin();
-
+            Provider.of<DataProvider>(context, listen: false)
+                .gameModel
+                .levels[widget.levelIndex]
+                .questions[widget.questionIndex]
+                .correctlyAnswered = false;
+            Provider.of<DataProvider>(context, listen: false)
+                .gameModel
+                .levels[widget.levelIndex]
+                .questions[widget.questionIndex]
+                .lockedTill = DateTime.now().add(Duration(minutes: 30));
+            print("question locked for 30 minutes");
             Alert(
               context: context,
               type: AlertType.error,
@@ -269,7 +354,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         AppRoutes.push(
                             context,
                             HomePage(
-                              questions: widget.questions,
+                              levelIndex: widget.levelIndex,
                             ));
 
                         // User.userData.index = User.userData.index + 1;
@@ -287,6 +372,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               });
             });
           } else {
+            Provider.of<DataProvider>(context, listen: false)
+                .gameModel
+                .levels[widget.levelIndex]
+                .questions[widget.questionIndex]
+                .correctlyAnswered = true;
             // Navigator.of(context).pop();
             setState(() {
               Provider.of<DataProvider>(context, listen: false)
@@ -294,14 +384,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               AppRoutes.push(
                   context,
                   HomePage(
-                    questions: widget.questions,
+                    levelIndex: widget.levelIndex,
                   ));
 
               // User.userData.index = User.userData.index + 1;
             });
           }
         }
-        if (widget.index == (widget.questions.length - 4)) {
+        if (widget.questionIndex ==
+            (Provider.of<DataProvider>(context, listen: false)
+                    .gameModel
+                    .levels[widget.levelIndex]
+                    .questions
+                    .length -
+                4)) {
           // await interstitialAd.load();
           interstitialAd.show();
         } else {

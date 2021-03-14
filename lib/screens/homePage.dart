@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/localization/language_constants.dart';
-import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
 import 'package:thequestion/screens/questionsScreen.dart';
 import 'package:thequestion/screens/SubmitAnswer.dart';
@@ -16,9 +15,9 @@ import 'package:thequestion/widgets/noenoughcoins.dart';
 import 'coinsscreen.dart';
 
 class HomePage extends StatefulWidget {
-  final List<Question> questions;
+  final int levelIndex;
   HomePage({
-    this.questions,
+    this.levelIndex,
   });
 
   static void setLocalView(BuildContext context, int value) {
@@ -63,7 +62,11 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: coins == 0
           ? NotEnoughCoins()
           : BottomNavigation(
-              hint: widget.questions[index].correctAnswer,
+              hint: Provider.of<DataProvider>(context, listen: false)
+                  .gameModel
+                  .levels[widget.levelIndex]
+                  .questions[index]
+                  .correctAnswer,
             ),
       // appBar: UpperBar(
       //   barName: "Questions",
@@ -133,8 +136,8 @@ class _HomePageState extends State<HomePage> {
       body: view == 0
           ? Center(
               child: QuestionsScreen(
-                questions: widget.questions,
-                index: index,
+                questionIndex: index,
+                levelIndex: widget.levelIndex,
               ),
             )
           : view == 1

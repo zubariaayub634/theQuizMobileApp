@@ -31,19 +31,21 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(itemCount: Provider.of<DataProvider>(context, listen: false)
-                .gameModel
-                .levels[widget.levelIndex]
-                .questions.length,
+            child: ListView.builder(
+                itemCount: Provider.of<DataProvider>(context, listen: false)
+                    .gameModel
+                    .levels[widget.levelIndex]
+                    .questions
+                    .length,
                 itemBuilder: (BuildContext context, int index) {
                   return QuestionCard(
-                     question: Provider.of<DataProvider>(context, listen: false)
-                          .gameModel
-                          .levels[widget.levelIndex]
-                          .questions[index].question
-                  );
-                }
-            ),
+                      question:
+                          Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[index]
+                              .question);
+                }),
           ),
           Row(
             children: [
@@ -65,11 +67,7 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                   AppRoutes.push(
                       context,
                       HomePage(
-                        questions:
-                            Provider.of<DataProvider>(context, listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions,
+                        levelIndex: widget.levelIndex,
                       ));
                 },
               ),
