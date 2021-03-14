@@ -243,6 +243,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               type: AlertType.error,
               title: "That's Wrong!\nTry it after 30 minutes.",
               style: AlertStyle(
+                isCloseButton: false,
+                isOverlayTapDismiss: false,
                 titleStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
