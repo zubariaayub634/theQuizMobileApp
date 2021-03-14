@@ -7,7 +7,7 @@ import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/routes/custom_router.dart';
 import 'package:thequestion/routes/route_constants.dart';
-import 'Provider/dataprovider.dart';
+import 'Provider/dataProvider.dart';
 import 'localization/appLocalizatin.dart';
 
 void main() {

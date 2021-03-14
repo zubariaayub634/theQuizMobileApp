@@ -2,7 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/screens/questionsOverview.dart';
@@ -132,8 +132,6 @@ class _Levels extends State<Levels> {
                 itemBuilder: (context, int index) {
                   return GestureDetector(
                     onTap: () async {
-                      Provider.of<DataProvider>(context, listen: false)
-                          .incrementCoins();
                       Provider.of<DataProvider>(context, listen: false)
                           .setCounterZero();
                       Navigator.push(

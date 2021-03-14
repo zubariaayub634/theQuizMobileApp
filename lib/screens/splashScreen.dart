@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/utils/routes.dart';

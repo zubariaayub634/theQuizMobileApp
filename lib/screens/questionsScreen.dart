@@ -1,9 +1,8 @@
 import 'package:admob_flutter/admob_flutter.dart';
-import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/screens/audioQuestion.dart';
 import 'package:thequestion/screens/homePage.dart';
@@ -66,8 +65,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   var height;
   @override
   Widget build(BuildContext context) {
-    // int ind = Provider.of<DataProvider>(context, listen: false).currentIndex;
-    Provider.of<DataProvider>(context, listen: false).decrementCoin();
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -225,77 +222,82 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           })
                     ],
                   ),
-                ):
-            (Provider.of<DataProvider>(context, listen: false)
-              .gameModel
-              .levels[widget.levelIndex]
-              .questions[widget.questionIndex]
-                  .correctlyAnswered? Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Question Already Answered Correctly.",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  DialogButton(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      color: appColor,
-                      child: Center(
-                        child: Text(
-                          "Next Question",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          Provider.of<DataProvider>(context, listen: false)
-                              .incrementCounter();
-                          AppRoutes.push(
-                              context,
-                              HomePage(
-                                levelIndex: widget.levelIndex,
-                              ));
-
-                          // User.userData.index = User.userData.index + 1;
-                        });
-                      })
-                ],
-              ),
-            ): Expanded(
-                  child: ListView.builder(
-                  itemBuilder: (context, int index) {
-                    return _answerContainer(
-                      Provider.of<DataProvider>(context, listen: false)
-                          .gameModel
-                          .levels[widget.levelIndex]
-                          .questions[widget.questionIndex]
-                          .options[index]
-                          .optionName
-                          .toString(),
-                      index,
-                      Provider.of<DataProvider>(context, listen: false)
-                          .gameModel
-                          .levels[widget.levelIndex]
-                          .questions[widget.questionIndex]
-                          .correctAnswer,
-                    );
-                  },
-                  itemCount: Provider.of<DataProvider>(context, listen: false)
+                )
+              : (Provider.of<DataProvider>(context, listen: false)
                       .gameModel
                       .levels[widget.levelIndex]
                       .questions[widget.questionIndex]
-                      .options
-                      .length,
-                ),)),
+                      .correctlyAnswered
+                  ? Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Question Already Answered Correctly.",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                            textAlign: TextAlign.center,
+                          ),
+                          DialogButton(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              color: appColor,
+                              child: Center(
+                                child: Text(
+                                  "Next Question",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  Provider.of<DataProvider>(context,
+                                          listen: false)
+                                      .incrementCounter();
+                                  AppRoutes.push(
+                                      context,
+                                      HomePage(
+                                        levelIndex: widget.levelIndex,
+                                      ));
+
+                                  // User.userData.index = User.userData.index + 1;
+                                });
+                              })
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, int index) {
+                          return _answerContainer(
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .options[index]
+                                .optionName
+                                .toString(),
+                            index,
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .correctAnswer,
+                          );
+                        },
+                        itemCount:
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[widget.questionIndex]
+                                .options
+                                .length,
+                      ),
+                    )),
 
           // _answerContainer("Al Wakrah", "b"),
           // _answerContainer("Doha", "c"),
@@ -392,7 +394,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           if (value.toString() != correctAnswer.toString()) {
             width = MediaQuery.of(context).size.width * .8;
             height = MediaQuery.of(context).size.height * .3;
-            Provider.of<DataProvider>(context, listen: false).decrementCoin();
             Provider.of<DataProvider>(context, listen: false)
                 .gameModel
                 .levels[widget.levelIndex]
@@ -444,16 +445,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     })
               ],
             ).show();
-
-            var cron = new Cron();
-            cron.schedule(new Schedule.parse('*/30 * * * *'), () async {
-              print('every three minutes');
-              setState(() {
-                Provider.of<DataProvider>(context, listen: false)
-                    .decrementCoin();
-              });
-            });
           } else {
+            Provider.of<DataProvider>(context, listen: false).addCoins(5);
             Provider.of<DataProvider>(context, listen: false)
                 .gameModel
                 .levels[widget.levelIndex]

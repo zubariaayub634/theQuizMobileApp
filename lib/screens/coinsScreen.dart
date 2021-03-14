@@ -4,7 +4,7 @@ import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/widgets/customappbar.dart';
 import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 
 class Coins extends StatefulWidget {
   @override

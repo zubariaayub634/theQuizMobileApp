@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
 import 'package:thequestion/screens/questionsScreen.dart';

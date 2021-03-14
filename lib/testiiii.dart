@@ -414,7 +414,7 @@
 // // import 'package:thequestion/utils/routes.dart';
 // // import 'package:thequestion/utils/styles.dart';
 // //
-// // import 'Provider/dataprovider.dart';
+// // import 'Provider/dataProvider.dart';
 // // import 'models/questionModel.dart';
 // //
 // // class Testtsts extends StatefulWidget {

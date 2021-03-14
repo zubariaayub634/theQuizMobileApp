@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thequestion/utils/const.dart';
 import 'package:provider/provider.dart';
-import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/Provider/dataProvider.dart';
 
 class BottomNavigation extends StatelessWidget {
   final String hint;
@@ -19,7 +19,7 @@ class BottomNavigation extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: () {
-                  Provider.of<DataProvider>(context, listen: false).decrementCoin();
+                  Provider.of<DataProvider>(context, listen: false).deductCoins(5);
                   ConstValues().hintDialog(context, hint);
                 },
                 child: Icon(

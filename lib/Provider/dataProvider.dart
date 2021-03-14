@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thequestion/models/questionModel.dart';
 
 class DataProvider extends ChangeNotifier {
-
   GameModel gameModel;
-
 
   int counter = 0;
   int coins = 20;
@@ -13,8 +11,6 @@ class DataProvider extends ChangeNotifier {
     counter = counter + 1;
     notifyListeners();
   }
-
-
 
   setCounterZero() {
     counter = 0;
@@ -33,7 +29,6 @@ class DataProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-
   reloadCoins(value) {
     coins = value;
     notifyListeners();
@@ -43,28 +38,37 @@ class DataProvider extends ChangeNotifier {
     return coins;
   }
 
-
   incrementCoins() {
     if (coins > 0) {
-    return  coins = coins +1;
-  } else {
-
-  }
-  notifyListeners();
+      return coins = coins + 1;
+    } else {}
+    notifyListeners();
     // return coins = coins++;
     // notifyListeners();
   }
 
-   decrementCoin() {
+  addCoins(int x) {
     if (coins > 0) {
-    return  coins--;
+      return coins = coins + x;
     } else {
-
+      coins = x;
     }
     notifyListeners();
   }
 
+  deductCoins(int x) {
+    if (coins > x) {
+      return coins = coins - x;
+    } else {
+      coins = 0;
+    }
+    notifyListeners();
+  }
 
+  decrementCoin() {
+    if (coins > 0) {
+      return coins--;
+    } else {}
+    notifyListeners();
+  }
 }
-
-
