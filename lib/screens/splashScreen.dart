@@ -1,7 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thequestion/Provider/dataprovider.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/utils/routes.dart';
+
+Future<GameModel> getLevels(BuildContext context) async {
+  var data = await DefaultAssetBundle.of(context)
+      .loadString("myquestions/questions.json");
+
+  final jsonResult = json.decode(data);
+  print(jsonResult['Levels'][0]['Questions'][0]['option']);
+  GameModel gameModel = GameModel.fromJson(jsonResult);
+
+  return gameModel;
+}
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
@@ -36,6 +52,8 @@ class _SplashScreenState extends State<SplashScreen>
         Future.delayed(Duration(seconds: 0), () async {
           SharedPreferences _prefs = await SharedPreferences.getInstance();
           bool check = _prefs.containsKey('languageCode');
+          Provider.of<DataProvider>(context, listen: false)
+              .gameModel = await getLevels(context);
           AppRoutes.push(context, PlayScreen());
           // Navigator.pushNamed(context, setLanguageRoute);
           // check

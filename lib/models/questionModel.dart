@@ -34,7 +34,7 @@ class LevelModel {
     for (Question q in questions) {
       if (q.correctlyAnswered) totalCorrect++;
     }
-    return totalCorrect.toDouble() / questions.length;
+    return 100 * totalCorrect.toDouble() / questions.length;
   }
 }
 
