@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
 import 'package:thequestion/apihelper/basehelper.dart';
-import 'package:thequestion/models/questionmodel.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/playscreen.dart';
-import 'package:thequestion/screens/question_list.dart';
+import 'package:thequestion/screens/questionsOverview.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
@@ -171,7 +171,7 @@ class _Levels extends State<Levels> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ListOfQuestions(
+            builder: (context) => QuestionsOverview(
               index: index,
               result: result,
             ),

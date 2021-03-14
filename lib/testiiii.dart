@@ -415,7 +415,7 @@
 // // import 'package:thequestion/utils/styles.dart';
 // //
 // // import 'Provider/dataprovider.dart';
-// // import 'models/questionmodel.dart';
+// // import 'models/questionModel.dart';
 // //
 // // class Testtsts extends StatefulWidget {
 // //   List<Questions> questions;

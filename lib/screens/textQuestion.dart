@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thequestion/screens/question_list.dart';
+import 'package:thequestion/screens/questionsOverview.dart';
 import 'package:thequestion/utils/styles.dart';
 import 'package:thequestion/widgets/customappbar.dart';
 
@@ -42,7 +42,7 @@ class _TextQuestion extends State<TextQuestion> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ListOfQuestions()),
+                          builder: (context) => QuestionsOverview()),
                     );
                   },
                 )),

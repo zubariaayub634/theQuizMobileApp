@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:thequestion/models/questionmodel.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
 import 'homePage.dart';
 
-class ListOfQuestions extends StatefulWidget {
-  final List<Questions> questions;
+class QuestionsOverview extends StatefulWidget {
+  final List<Question> questions;
   final int index;
   final List<LevelResult> result;
-  ListOfQuestions({this.index, this.result, this.questions});
+  QuestionsOverview({this.index, this.result, this.questions});
   @override
-  _ListOfQuestionsState createState() => _ListOfQuestionsState();
+  _QuestionsOverviewState createState() => _QuestionsOverviewState();
 }
 
-class _ListOfQuestionsState extends State<ListOfQuestions> {
+class _QuestionsOverviewState extends State<QuestionsOverview> {
   var width, height;
   var coins;
 

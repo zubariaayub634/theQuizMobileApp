@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/localization/language_constants.dart';
-import 'package:thequestion/models/questionmodel.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
 import 'package:thequestion/screens/questionsScreen.dart';
 import 'package:thequestion/screens/SubmitAnswer.dart';
@@ -16,7 +16,7 @@ import 'package:thequestion/widgets/noenoughcoins.dart';
 import 'coinsscreen.dart';
 
 class HomePage extends StatefulWidget {
-  final List<Questions> questions;
+  final List<Question> questions;
   HomePage({
     this.questions,
   });

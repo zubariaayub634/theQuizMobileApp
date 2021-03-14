@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
-import 'package:thequestion/models/questionmodel.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/audioQuestion.dart';
 import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/screens/videoQuestion.dart';
@@ -15,7 +15,7 @@ import 'package:thequestion/utils/styles.dart';
 import 'package:thequestion/screens/playscreen.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  final List<Questions> questions;
+  final List<Question> questions;
   final int index;
   QuestionsScreen({this.questions, this.index});
 

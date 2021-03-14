@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:thequestion/models/questionmodel.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'dart:convert';
 
 class BaseHelper {

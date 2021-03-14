@@ -16,32 +16,35 @@ class QuestionModel {
 }
 
 class LevelResult {
-  List<Questions> questions;
+  List<Question> questions;
   int index;
-  LevelResult({this.questions,this.index});
+  LevelResult({this.questions, this.index});
 
   factory LevelResult.fromJson(Map<String, dynamic> json) {
     return LevelResult(
       questions: (json['Questions'] as List)
-              .map((e) => Questions.fromJson(e))
+              .map((e) => Question.fromJson(e))
               .toList() ??
           [],
     );
   }
 }
 
-class Questions {
-  var type;
-  var url;
-  var correctAnswer;
-  var question;
+class Question {
+  final type;
+  final url;
+  final correctAnswer;
+  final question;
+  DateTime lockedTill = DateTime.now().subtract(Duration(days: 50));
+  bool correctlyAnswered = false;
   List<Options> options;
-  Questions(
+  Question(
       {this.correctAnswer, this.url, this.options, this.question, this.type});
 
-  factory Questions.fromJson(Map<String, dynamic> json) {
-    return Questions(
-      options: (json['option'] as List).map((e) => Options.fromJson(e)).toList() ??
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return Question(
+      options:
+          (json['option'] as List).map((e) => Options.fromJson(e)).toList() ??
               [],
       type: json['type'] ?? "",
       url: json['url'] ?? "",
