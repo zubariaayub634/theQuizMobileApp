@@ -65,11 +65,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   var width;
   var height;
-  var coins;
   @override
   Widget build(BuildContext context) {
     // int ind = Provider.of<DataProvider>(context, listen: false).currentIndex;
-    coins = Provider.of<DataProvider>(context, listen: false).decrementCoin();
+    Provider.of<DataProvider>(context, listen: false).decrementCoin();
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -235,8 +234,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           if (value.toString() != correctAnswer.toString()) {
             width = MediaQuery.of(context).size.width * .8;
             height = MediaQuery.of(context).size.height * .3;
-            coins =
-                Provider.of<DataProvider>(context, listen: false).decrementCoin;
+            Provider.of<DataProvider>(context, listen: false).decrementCoin();
 
             Alert(
               context: context,
@@ -266,9 +264,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        coins =
-                            Provider.of<DataProvider>(context, listen: false)
-                                .incrementCounter();
+                        Provider.of<DataProvider>(context, listen: false)
+                            .incrementCounter();
                         AppRoutes.push(
                             context,
                             HomePage(
@@ -285,14 +282,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             cron.schedule(new Schedule.parse('*/30 * * * *'), () async {
               print('every three minutes');
               setState(() {
-                coins = Provider.of<DataProvider>(context, listen: false)
+                Provider.of<DataProvider>(context, listen: false)
                     .decrementCoin();
               });
             });
           } else {
             // Navigator.of(context).pop();
             setState(() {
-              coins = Provider.of<DataProvider>(context, listen: false)
+              Provider.of<DataProvider>(context, listen: false)
                   .incrementCounter();
               AppRoutes.push(
                   context,
