@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:thequestion/models/questionModel.dart';
 
 class DataProvider extends ChangeNotifier {
+
+  GameModel gameModel;
 
 
   int counter = 0;

@@ -162,6 +162,8 @@ class _Levels extends State<Levels> {
                             coins = Provider.of<DataProvider>(context,
                                     listen: false)
                                 .incrementCoins();
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel = snapshot.data;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
