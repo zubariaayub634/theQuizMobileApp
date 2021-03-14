@@ -94,7 +94,10 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                         questions: widget.result[widget.index].questions,
                       ));
                 },
-              )
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
             ],
             mainAxisAlignment: MainAxisAlignment.end,
           ),
