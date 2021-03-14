@@ -168,8 +168,7 @@ class _Levels extends State<Levels> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => QuestionsOverview(
-                                  index: index,
-                                  result: snapshot.data.levels,
+                                  levelIndex: index,
                                 ),
                               ),
                             );

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:thequestion/models/questionModel.dart';
+import 'package:provider/provider.dart';
+import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
 import 'homePage.dart';
 
 class QuestionsOverview extends StatefulWidget {
-  final List<Question> questions;
-  final int index;
-  final List<LevelModel> result;
-  QuestionsOverview({this.index, this.result, this.questions});
+  final int levelIndex;
+  QuestionsOverview({this.levelIndex});
   @override
   _QuestionsOverviewState createState() => _QuestionsOverviewState();
 }
@@ -32,43 +31,18 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: [
-                TextsWidget(
-                  texts: "What is capital of Pakistan?",
-                ),
-                TextsWidget(
-                  texts: "Which Animal in video?",
-                ),
-                TextsWidget(
-                  texts: "Who is guy in this audio?",
-                ),
-                TextsWidget(
-                  texts: "Where badshahi Mosque Located?",
-                ),
-                TextsWidget(
-                  texts: "Which Animal in video?",
-                ),
-                TextsWidget(
-                  texts: "What is capital of Pakistan?",
-                ),
-                // TextsWidget(
-                //   texts: "Where badshahi Mosque Located?",
-                // ),
-                // TextsWidget(
-                //   texts: "Where badshahi Mosque Located?",
-                // ),
-                // child: ListView.builder(
-                //   itemBuilder: (context, int index) {
-                //     return levelList(index, snapshot.data);
-                //   },
-                //   itemCount: snapshot.data.length,
-                // ),
-
-                // TextsWidget(
-                //   texts: "What is capital of Pakistan?",
-                // ),
-              ],
+            child: ListView.builder(itemCount: Provider.of<DataProvider>(context, listen: false)
+                .gameModel
+                .levels[widget.levelIndex]
+                .questions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return QuestionCard(
+                     question: Provider.of<DataProvider>(context, listen: false)
+                          .gameModel
+                          .levels[widget.levelIndex]
+                          .questions[index].question
+                  );
+                }
             ),
           ),
           Row(
@@ -91,7 +65,11 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                   AppRoutes.push(
                       context,
                       HomePage(
-                        questions: widget.result[widget.index].questions,
+                        questions:
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions,
                       ));
                 },
               ),
@@ -172,98 +150,15 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
   }
 }
 
-// class TextsWidget extends StatefulWidget {
-//
-//   final texts;
-//   TextsWidget({this.texts});
-//
-//   @override
-//   _TextsWidgetState createState() => _TextsWidgetState();
-// }
-//
-// class _TextsWidgetState extends State<TextsWidget> {
-//
-//   var width, height;
-//   var coins;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     width = MediaQuery.of(context).size.width;
-//     height = MediaQuery.of(context).size.height;
-//
-//     return FutureBuilder(
-//       future: BaseHelper().getLevels(context),
-//       builder: (context, snapshot,) {
-//         if (snapshot.hasData) {
-//           return Expanded(
-//             child: ListView.builder(
-//              itemBuilder: (context, int index) {
-//                return levelList(index, snapshot.data);
-//              },
-//              itemCount: snapshot.data.length = 1,
-//                 ),
-//             // child: ListView.builder(
-//             //   itemBuilder: (context, int index) {
-//             //     return levelList(index, snapshot.data);
-//             //   },
-//             //   itemCount: snapshot.data.length,
-//             // ),
-//           );
-//         } else {
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-//       },
-//     );
-//   }
-//
-//   Widget levelList(int index, List<LevelResult> result) {
-//     return GestureDetector(
-//       onTap: () async {
-//         Provider.of<DataProvider>(context, listen: false).setCounterZero();
-//         AppRoutes.push(
-//             context,
-//             HomePage(
-//               questions: result[index].questions,
-//             )
-//         );
-//       },
-//       child: SizedBox(
-//         child: Card(
-//             elevation: 3.0,
-//             child: Padding(
-//               padding: const EdgeInsets.only(left: 10),
-//               child: Row(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: [
-//                   Text("${widget.texts}",
-//                     style: TextStyle(
-//                       fontSize: 17,
-//                       fontWeight: FontWeight.w400,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             )),
-//         width: width * 0.99,
-//         height: height * 0.1,
-//       ),
-//     );
-//   }
-//
-// }
-
-class TextsWidget extends StatefulWidget {
-  final texts;
-  TextsWidget({this.texts});
+class QuestionCard extends StatefulWidget {
+  final question;
+  QuestionCard({this.question});
 
   @override
-  _TextsWidgetState createState() => _TextsWidgetState();
+  _QuestionCardState createState() => _QuestionCardState();
 }
 
-class _TextsWidgetState extends State<TextsWidget> {
+class _QuestionCardState extends State<QuestionCard> {
   var width, height;
   var coins;
 
@@ -281,7 +176,7 @@ class _TextsWidgetState extends State<TextsWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "${widget.texts}",
+                  "${widget.question}",
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
