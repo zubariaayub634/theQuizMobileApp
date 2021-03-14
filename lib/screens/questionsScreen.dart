@@ -185,34 +185,73 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   .questions[widget.questionIndex]
                   .lockedTill
                   .isAfter(DateTime.now()))
-              ? Text("blocked")
-              : Container(),
-          Expanded(
-              child: ListView.builder(
-            itemBuilder: (context, int index) {
-              return _answerContainer(
-                Provider.of<DataProvider>(context, listen: false)
-                    .gameModel
-                    .levels[widget.levelIndex]
-                    .questions[widget.questionIndex]
-                    .options[index]
-                    .optionName
-                    .toString(),
-                index,
-                Provider.of<DataProvider>(context, listen: false)
-                    .gameModel
-                    .levels[widget.levelIndex]
-                    .questions[widget.questionIndex]
-                    .correctAnswer,
-              );
-            },
-            itemCount: Provider.of<DataProvider>(context, listen: false)
-                .gameModel
-                .levels[widget.levelIndex]
-                .questions[widget.questionIndex]
-                .options
-                .length,
-          )),
+              ? Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Question Blocked.\nPlease try again later.",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                        textAlign: TextAlign.center,
+                      ),
+                      DialogButton(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          color: appColor,
+                          child: Center(
+                            child: Text(
+                              "Next Question",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              Provider.of<DataProvider>(context, listen: false)
+                                  .incrementCounter();
+                              AppRoutes.push(
+                                  context,
+                                  HomePage(
+                                    levelIndex: widget.levelIndex,
+                                  ));
+
+                              // User.userData.index = User.userData.index + 1;
+                            });
+                          })
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                  itemBuilder: (context, int index) {
+                    return _answerContainer(
+                      Provider.of<DataProvider>(context, listen: false)
+                          .gameModel
+                          .levels[widget.levelIndex]
+                          .questions[widget.questionIndex]
+                          .options[index]
+                          .optionName
+                          .toString(),
+                      index,
+                      Provider.of<DataProvider>(context, listen: false)
+                          .gameModel
+                          .levels[widget.levelIndex]
+                          .questions[widget.questionIndex]
+                          .correctAnswer,
+                    );
+                  },
+                  itemCount: Provider.of<DataProvider>(context, listen: false)
+                      .gameModel
+                      .levels[widget.levelIndex]
+                      .questions[widget.questionIndex]
+                      .options
+                      .length,
+                )),
 
           // _answerContainer("Al Wakrah", "b"),
           // _answerContainer("Doha", "c"),
@@ -320,7 +359,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 .levels[widget.levelIndex]
                 .questions[widget.questionIndex]
                 .lockedTill = DateTime.now().add(Duration(minutes: 30));
-            print("question locked for 30 minutes");
             Alert(
               context: context,
               type: AlertType.error,
