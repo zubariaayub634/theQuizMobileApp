@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataprovider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
-import 'package:thequestion/apihelper/basehelper.dart';
 import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/playscreen.dart';
 import 'package:thequestion/screens/questionsOverview.dart';
@@ -12,6 +13,17 @@ import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
 import 'coinsScreen.dart';
+
+Future<GameModel> getLevels(BuildContext context) async {
+  var data = await DefaultAssetBundle.of(context)
+      .loadString("myquestions/questions.json");
+
+  final jsonResult = json.decode(data);
+  print(jsonResult['Levels'][0]['Questions'][0]['option']);
+  GameModel gameModel = GameModel.fromJson(jsonResult);
+
+  return gameModel;
+}
 
 class Levels extends StatefulWidget {
   @override
@@ -138,16 +150,94 @@ class _Levels extends State<Levels> {
         height: height,
         child: Column(
           children: [
-            FutureBuilder(
-              future: BaseHelper().getLevels(context),
-              builder: (context, snapshot) {
+            FutureBuilder<GameModel>(
+              future: getLevels(context),
+              builder: (context, AsyncSnapshot<GameModel> snapshot) {
                 if (snapshot.hasData) {
                   return Expanded(
                     child: ListView.builder(
                       itemBuilder: (context, int index) {
-                        return levelList(index, snapshot.data);
+                        return GestureDetector(
+                          onTap: () async {
+                            coins = Provider.of<DataProvider>(context,
+                                    listen: false)
+                                .incrementCoins();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuestionsOverview(
+                                  index: index,
+                                  result: snapshot.data.levels,
+                                ),
+                              ),
+                            );
+                            interstitialAd.isLoaded;
+                          },
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: width,
+                                    height: height * .1,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              width: width * .13,
+                                              height: height * .06,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: snapshot.data
+                                                              .levels[index]
+                                                              .getCorrectlyAnsweredPercentage() <
+                                                          100
+                                                      ? Colors.orange
+                                                      : Colors.green),
+                                              child: Center(
+                                                child: snapshot
+                                                            .data.levels[index]
+                                                            .getCorrectlyAnsweredPercentage() <
+                                                        100
+                                                    ? Text(
+                                                        (snapshot.data
+                                                                .levels[index]
+                                                                .getCorrectlyAnsweredPercentage()
+                                                                .round()
+                                                                .toString()) +
+                                                            "%",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14),
+                                                      )
+                                                    : Icon(Icons.done,
+                                                        color: Colors.green),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text("Level $index",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14)),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                  width: width, height: 2, color: Colors.grey),
+                            ],
+                          ),
+                        );
                       },
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data.levels.length,
                     ),
                   );
                 } else {
@@ -159,70 +249,6 @@ class _Levels extends State<Levels> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget levelList(int index, List<LevelResult> result) {
-    return GestureDetector(
-      onTap: () async {
-        coins =
-            Provider.of<DataProvider>(context, listen: false).incrementCoins();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QuestionsOverview(
-              index: index,
-              result: result,
-            ),
-          ),
-        );
-        interstitialAd.isLoaded;
-      },
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: width,
-                height: height * .1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 5),
-                          width: width * .13,
-                          height: height * .06,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color:
-                                  index.isEven ? Colors.orange : Colors.white),
-                          child: Center(
-                            child: index.isEven
-                                ? Text(
-                                    "50%",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  )
-                                : Icon(Icons.done, color: Colors.green),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text("Level $index",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(width: width, height: 2, color: Colors.grey),
-        ],
       ),
     );
   }

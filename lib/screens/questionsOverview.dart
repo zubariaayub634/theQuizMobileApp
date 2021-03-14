@@ -8,7 +8,7 @@ import 'homePage.dart';
 class QuestionsOverview extends StatefulWidget {
   final List<Question> questions;
   final int index;
-  final List<LevelResult> result;
+  final List<LevelModel> result;
   QuestionsOverview({this.index, this.result, this.questions});
   @override
   _QuestionsOverviewState createState() => _QuestionsOverviewState();

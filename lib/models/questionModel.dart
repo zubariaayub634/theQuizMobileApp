@@ -1,32 +1,40 @@
-class QuestionModel {
-  final List<LevelResult> result;
+class GameModel {
+  final List<LevelModel> levels;
 
-  QuestionModel({
-    this.result,
+  GameModel({
+    this.levels,
   });
 
-  factory QuestionModel.fromJson(Map<String, dynamic> json) {
-    return QuestionModel(
-      result: (json['Levels'] as List)
-              .map((e) => LevelResult.fromJson(e))
+  factory GameModel.fromJson(Map<String, dynamic> json) {
+    return GameModel(
+      levels: (json['Levels'] as List)
+              .map((e) => LevelModel.fromJson(e))
               .toList() ??
           [],
     );
   }
 }
 
-class LevelResult {
+class LevelModel {
   List<Question> questions;
   int index;
-  LevelResult({this.questions, this.index});
+  LevelModel({this.questions, this.index});
 
-  factory LevelResult.fromJson(Map<String, dynamic> json) {
-    return LevelResult(
+  factory LevelModel.fromJson(Map<String, dynamic> json) {
+    return LevelModel(
       questions: (json['Questions'] as List)
               .map((e) => Question.fromJson(e))
               .toList() ??
           [],
     );
+  }
+
+  double getCorrectlyAnsweredPercentage() {
+    int totalCorrect = 0;
+    for (Question q in questions) {
+      if (q.correctlyAnswered) totalCorrect++;
+    }
+    return totalCorrect.toDouble() / questions.length;
   }
 }
 
