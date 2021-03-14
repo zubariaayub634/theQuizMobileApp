@@ -57,22 +57,13 @@ class _Levels extends State<Levels> {
   }
   //TODO: Ads Method...........code end........
 
-  var width, height, coins;
-  // var coins;
+  var width, height;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    // setState(() {
-    //   coins = Provider.of<DataProvider>(context, listen: false).coins;
-    // });    // setState(() {
-    //   coins = Provider.of<DataProvider>(context, listen: false).coins;
-    //});
-    setState(() {
-      coins = Provider.of<DataProvider>(context, listen: false).coins;
-    });
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -129,7 +120,7 @@ class _Levels extends State<Levels> {
                     ),
                     Text(
                       // "$coins",
-                      "$coins",
+                      "${Provider.of<DataProvider>(context, listen: false).coins}",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(
@@ -159,7 +150,7 @@ class _Levels extends State<Levels> {
                       itemBuilder: (context, int index) {
                         return GestureDetector(
                           onTap: () async {
-                            coins = Provider.of<DataProvider>(context,
+                          Provider.of<DataProvider>(context,
                                     listen: false)
                                 .incrementCoins();
                             Provider.of<DataProvider>(context, listen: false)
