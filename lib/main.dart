@@ -22,13 +22,12 @@ void main() {
   runApp(MyApp());
 }
 
-
-
 class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
     state.setLocale(newLocale);
   }
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -60,35 +59,38 @@ class _MyAppState extends State<MyApp> {
           lazy: false,
         ),
       ],
-      child: MaterialApp(
-        title: 'TheQuestion',
-        debugShowCheckedModeBanner: false,
-        initialRoute: splashRoute,
-        locale: _locale,
-        supportedLocales: [
-          Locale("en", "US"),
-          Locale("ar", "SA"),
-        ],
-        localizationsDelegates: [
-          AppLocalization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: MaterialApp(
+          title: 'TheQuestion',
+          debugShowCheckedModeBanner: false,
+          initialRoute: splashRoute,
+          locale: _locale,
+          supportedLocales: [
+            Locale("en", "US"),
+            Locale("ar", "SA"),
+          ],
+          localizationsDelegates: [
+            AppLocalization.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
             }
-          }
-          return supportedLocales.first;
-        },
-        onGenerateRoute: CustomRouter.generatedRoute,
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+            return supportedLocales.first;
+          },
+          onGenerateRoute: CustomRouter.generatedRoute,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
         ),
       ),
     );
