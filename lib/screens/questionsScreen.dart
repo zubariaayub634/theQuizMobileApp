@@ -225,8 +225,52 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           })
                     ],
                   ),
-                )
-              : Expanded(
+                ):
+            (Provider.of<DataProvider>(context, listen: false)
+              .gameModel
+              .levels[widget.levelIndex]
+              .questions[widget.questionIndex]
+                  .correctlyAnswered? Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Question Already Answered Correctly.",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                  DialogButton(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      color: appColor,
+                      child: Center(
+                        child: Text(
+                          "Next Question",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          Provider.of<DataProvider>(context, listen: false)
+                              .incrementCounter();
+                          AppRoutes.push(
+                              context,
+                              HomePage(
+                                levelIndex: widget.levelIndex,
+                              ));
+
+                          // User.userData.index = User.userData.index + 1;
+                        });
+                      })
+                ],
+              ),
+            ): Expanded(
                   child: ListView.builder(
                   itemBuilder: (context, int index) {
                     return _answerContainer(
@@ -251,7 +295,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       .questions[widget.questionIndex]
                       .options
                       .length,
-                )),
+                ),)),
 
           // _answerContainer("Al Wakrah", "b"),
           // _answerContainer("Doha", "c"),
