@@ -53,7 +53,12 @@ class _HomePageState extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
 
     coins = Provider.of<DataProvider>(context, listen: false).getCoins;
-    int index = Provider.of<DataProvider>(context, listen: false).currentIndex;
+    int index = Provider.of<DataProvider>(context, listen: false).currentIndex %
+        Provider.of<DataProvider>(context, listen: false)
+            .gameModel
+            .levels[widget.levelIndex]
+            .questions
+            .length;
 
     print("current index" + index.toString());
     print("pending coins: " + coins.toString());

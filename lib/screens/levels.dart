@@ -134,6 +134,8 @@ class _Levels extends State<Levels> {
                     onTap: () async {
                       Provider.of<DataProvider>(context, listen: false)
                           .incrementCoins();
+                      Provider.of<DataProvider>(context, listen: false)
+                          .setCounterZero();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
