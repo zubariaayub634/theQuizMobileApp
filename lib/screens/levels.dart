@@ -194,7 +194,7 @@ class _Levels extends State<Levels> {
                                                       fontSize: 14),
                                                 )
                                               : Icon(Icons.done,
-                                                  color: Colors.green),
+                                                  color: Colors.white),
                                         ),
                                       ),
                                       Expanded(
