@@ -381,57 +381,57 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         ],
       ),
       onTap: () async {
-        if (widget.questionIndex ==
-            (Provider.of<DataProvider>(context, listen: false)
-                    .gameModel
-                    .levels[widget.levelIndex]
-                    .questions
-                    .length -
-                1)) {
-          // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-          AppRoutes.makeFirst(context, PlayScreen());
-        } else {
-          if (value.toString() != correctAnswer.toString()) {
-            width = MediaQuery.of(context).size.width * .8;
-            height = MediaQuery.of(context).size.height * .3;
-            Provider.of<DataProvider>(context, listen: false)
-                .gameModel
-                .levels[widget.levelIndex]
-                .questions[widget.questionIndex]
-                .correctlyAnswered = false;
-            Provider.of<DataProvider>(context, listen: false)
-                .gameModel
-                .levels[widget.levelIndex]
-                .questions[widget.questionIndex]
-                .lockedTill = DateTime.now().add(Duration(minutes: 30));
-            Alert(
-              context: context,
-              type: AlertType.error,
-              title: "That's Wrong!\nTry it after 30 minutes.",
-              style: AlertStyle(
-                isCloseButton: false,
-                isOverlayTapDismiss: false,
-                titleStyle: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-              content: Container(),
-              buttons: [
-                DialogButton(
-                    color: appColor,
-                    child: Center(
-                      child: Text(
-                        "Next Question",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                        textAlign: TextAlign.center,
-                      ),
+        if (value.toString() != correctAnswer.toString()) {
+          width = MediaQuery.of(context).size.width * .8;
+          height = MediaQuery.of(context).size.height * .3;
+          Provider.of<DataProvider>(context, listen: false)
+              .gameModel
+              .levels[widget.levelIndex]
+              .questions[widget.questionIndex]
+              .correctlyAnswered = false;
+          Provider.of<DataProvider>(context, listen: false)
+              .gameModel
+              .levels[widget.levelIndex]
+              .questions[widget.questionIndex]
+              .lockedTill = DateTime.now().add(Duration(minutes: 30));
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: "That's Wrong!\nTry it after 30 minutes.",
+            style: AlertStyle(
+              isCloseButton: false,
+              isOverlayTapDismiss: false,
+              titleStyle: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+            ),
+            content: Container(),
+            buttons: [
+              DialogButton(
+                  color: appColor,
+                  child: Center(
+                    child: Text(
+                      "Next Question",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                      textAlign: TextAlign.center,
                     ),
-                    onPressed: () {
-                      setState(() {
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      if (widget.questionIndex ==
+                          (Provider.of<DataProvider>(context, listen: false)
+                                  .gameModel
+                                  .levels[widget.levelIndex]
+                                  .questions
+                                  .length -
+                              1)) {
+                        // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+                        AppRoutes.makeFirst(context, PlayScreen());
+                      } else {
                         Provider.of<DataProvider>(context, listen: false)
                             .incrementCounter();
                         AppRoutes.push(
@@ -439,21 +439,32 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             HomePage(
                               levelIndex: widget.levelIndex,
                             ));
+                      }
 
-                        // User.userData.index = User.userData.index + 1;
-                      });
-                    })
-              ],
-            ).show();
-          } else {
-            Provider.of<DataProvider>(context, listen: false).addCoins(5);
-            Provider.of<DataProvider>(context, listen: false)
-                .gameModel
-                .levels[widget.levelIndex]
-                .questions[widget.questionIndex]
-                .correctlyAnswered = true;
-            // Navigator.of(context).pop();
-            setState(() {
+                      // User.userData.index = User.userData.index + 1;
+                    });
+                  })
+            ],
+          ).show();
+        } else {
+          Provider.of<DataProvider>(context, listen: false).addCoins(5);
+          Provider.of<DataProvider>(context, listen: false)
+              .gameModel
+              .levels[widget.levelIndex]
+              .questions[widget.questionIndex]
+              .correctlyAnswered = true;
+          // Navigator.of(context).pop();
+          setState(() {
+            if (widget.questionIndex ==
+                (Provider.of<DataProvider>(context, listen: false)
+                        .gameModel
+                        .levels[widget.levelIndex]
+                        .questions
+                        .length -
+                    1)) {
+              // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+              AppRoutes.makeFirst(context, PlayScreen());
+            } else {
               Provider.of<DataProvider>(context, listen: false)
                   .incrementCounter();
               AppRoutes.push(
@@ -461,11 +472,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   HomePage(
                     levelIndex: widget.levelIndex,
                   ));
+            }
 
-              // User.userData.index = User.userData.index + 1;
-            });
-          }
+            // User.userData.index = User.userData.index + 1;
+          });
         }
+
         if (widget.questionIndex ==
             (Provider.of<DataProvider>(context, listen: false)
                     .gameModel
