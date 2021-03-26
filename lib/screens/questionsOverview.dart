@@ -50,13 +50,25 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                     .questions
                     .length,
                 itemBuilder: (BuildContext context, int index) {
-                  return QuestionCard(
-                      question:
-                          Provider.of<DataProvider>(context, listen: false)
-                              .gameModel
-                              .levels[widget.levelIndex]
-                              .questions[index]
-                              .question);
+                  return MaterialButton(
+                    onPressed: () {
+                      print(index);
+                      Provider.of<DataProvider>(context, listen: false)
+                          .counter = index;
+                      AppRoutes.push(
+                          context,
+                          HomePage(
+                            levelIndex: widget.levelIndex,
+                          ));
+                    },
+                    child: QuestionCard(
+                        question:
+                            Provider.of<DataProvider>(context, listen: false)
+                                .gameModel
+                                .levels[widget.levelIndex]
+                                .questions[index]
+                                .question),
+                  );
                 }),
           ),
           Row(
@@ -76,6 +88,8 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                       fontWeight: FontWeight.w400),
                 ),
                 onPressed: () {
+                  Provider.of<DataProvider>(context, listen: false)
+                      .counter = 0;
                   AppRoutes.push(
                       context,
                       HomePage(
