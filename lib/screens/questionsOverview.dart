@@ -5,6 +5,7 @@ import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 
 import 'homePage.dart';
+import 'levels.dart';
 
 class QuestionsOverview extends StatefulWidget {
   final int levelIndex;
@@ -22,11 +23,22 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
     // TODO: implement build
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    // coins = Provider.of<DataProvider>(context, listen: false).getCoins;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
-        title: Text('Question Overview'),
+        leading: InkWell(
+            onTap: () {
+              AppRoutes.push(context, Levels());
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
+        centerTitle: true,
+        title: Text(
+          "Questions Overview",
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
       body: Column(
         children: [

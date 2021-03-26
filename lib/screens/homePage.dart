@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/localization/language_constants.dart';
 import 'package:thequestion/screens/OfferingVendors.dart';
+import 'package:thequestion/screens/questionsOverview.dart';
 import 'package:thequestion/screens/questionsScreen.dart';
 import 'package:thequestion/screens/SubmitAnswer.dart';
 import 'package:thequestion/screens/vendorOffers.dart';
@@ -81,17 +82,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: appColor,
         leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              AppRoutes.push(
+                  context,
+                  QuestionsOverview(
+                    levelIndex: widget.levelIndex,
+                  ));
             },
             child: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )),
-        // leading: BackButton(
-        //   onPressed: (){
-        //     AppRoutes.push(context, Levels());
-        //   },
-        // ),
         centerTitle: true,
         title: Text(
           "Question",
