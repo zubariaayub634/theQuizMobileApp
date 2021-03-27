@@ -69,42 +69,31 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    int type = Provider.of<DataProvider>(context, listen: false)
+        .gameModel
+        .levels[widget.levelIndex]
+        .questions[widget.questionIndex]
+        .type;
+    String question = Provider.of<DataProvider>(context, listen: false)
+        .gameModel
+        .levels[widget.levelIndex]
+        .questions[widget.questionIndex]
+        .question
+        .toString();
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
         //  mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Provider.of<DataProvider>(context, listen: false)
-                      .gameModel
-                      .levels[widget.levelIndex]
-                      .questions[widget.questionIndex]
-                      .type ==
-                  0
-              ? _questionContainer(
-                  Provider.of<DataProvider>(context, listen: false)
-                      .gameModel
-                      .levels[widget.levelIndex]
-                      .questions[widget.questionIndex]
-                      .question
-                      .toString())
-              : Provider.of<DataProvider>(context, listen: false)
-                          .gameModel
-                          .levels[widget.levelIndex]
-                          .questions[widget.questionIndex]
-                          .type ==
-                      1
+          type == 0
+              ? _questionContainer(question)
+              : type == 1
                   ? Column(
                       children: [
                         SizedBox(
                             height: MediaQuery.of(context).size.height * .05),
-                        _questionContainer(
-                            Provider.of<DataProvider>(context, listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[widget.questionIndex]
-                                .question
-                                .toString()),
+                        _questionContainer(question),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * .33,
@@ -119,25 +108,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         ),
                       ],
                     )
-                  : Provider.of<DataProvider>(context, listen: false)
-                              .gameModel
-                              .levels[widget.levelIndex]
-                              .questions[widget.questionIndex]
-                              .type ==
-                          3
+                  : type == 3
                       ? Column(
                           children: [
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * .008),
-                            _questionContainer(Provider.of<DataProvider>(
-                                    context,
-                                    listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[widget.questionIndex]
-                                .question
-                                .toString()),
+                            _questionContainer(question),
                             AudioQuestion(
                               url: Provider.of<DataProvider>(context,
                                       listen: false)
@@ -148,25 +125,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             ),
                           ],
                         )
-                      : Provider.of<DataProvider>(context, listen: false)
-                                  .gameModel
-                                  .levels[widget.levelIndex]
-                                  .questions[widget.questionIndex]
-                                  .type ==
-                              4
+                      : type == 4
                           ? Column(
                               children: [
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         .008),
-                                _questionContainer(Provider.of<DataProvider>(
-                                        context,
-                                        listen: false)
-                                    .gameModel
-                                    .levels[widget.levelIndex]
-                                    .questions[widget.questionIndex]
-                                    .question
-                                    .toString()),
+                                _questionContainer(question),
                               ],
                             )
                           : Column(
@@ -194,13 +159,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                       fit: BoxFit.fill,
                                     ))),
                                 _questionContainer(
-                                  Provider.of<DataProvider>(context,
-                                          listen: false)
-                                      .gameModel
-                                      .levels[widget.levelIndex]
-                                      .questions[widget.questionIndex]
-                                      .question
-                                      .toString(),
+                                  question,
                                 ),
                               ],
                             ),
@@ -244,8 +203,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                   HomePage(
                                     levelIndex: widget.levelIndex,
                                   ));
-
-                              // User.userData.index = User.userData.index + 1;
                             });
                           })
                     ],
@@ -269,41 +226,37 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             textAlign: TextAlign.center,
                           ),
                           DialogButton(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              color: appColor,
-                              child: Center(
-                                child: Text(
-                                  "Next Question",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                  textAlign: TextAlign.center,
-                                ),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            color: appColor,
+                            child: Center(
+                              child: Text(
+                                "Next Question",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                                textAlign: TextAlign.center,
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  Provider.of<DataProvider>(context,
-                                          listen: false)
-                                      .incrementCounter();
-                                  AppRoutes.push(
-                                      context,
-                                      HomePage(
-                                        levelIndex: widget.levelIndex,
-                                      ));
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                Provider.of<DataProvider>(context,
+                                        listen: false)
+                                    .incrementCounter();
+                                AppRoutes.push(
+                                    context,
+                                    HomePage(
+                                      levelIndex: widget.levelIndex,
+                                    ));
 
-                                  // User.userData.index = User.userData.index + 1;
-                                });
-                              })
+                                // User.userData.index = User.userData.index + 1;
+                              });
+                            },
+                          )
                         ],
                       ),
                     )
-                  : Provider.of<DataProvider>(context, listen: false)
-                              .gameModel
-                              .levels[widget.levelIndex]
-                              .questions[widget.questionIndex]
-                              .type ==
-                          4
+                  : type == 4
                       ? _textAnswerContainer(
                           Provider.of<DataProvider>(context, listen: false)
                               .gameModel
@@ -420,87 +373,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 }
                               }
                               if (matches) {
-                                if (widget.questionIndex ==
-                                    (Provider.of<DataProvider>(context,
-                                                listen: false)
-                                            .gameModel
-                                            .levels[widget.levelIndex]
-                                            .questions
-                                            .length -
-                                        1)) {
-                                  // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-                                  AppRoutes.makeFirst(context, PlayScreen());
-                                } else {
-                                  Provider.of<DataProvider>(context,
-                                          listen: false)
-                                      .incrementCounter();
-                                  AppRoutes.push(
-                                      context,
-                                      HomePage(
-                                        levelIndex: widget.levelIndex,
-                                      ));
-                                }
-                                setState(() {});
+                                correctAnswerResponse();
                               } else {
-                                Alert(
-                                  context: context,
-                                  type: AlertType.error,
-                                  title:
-                                      "That's Wrong!\nTry it after 30 minutes.",
-                                  style: AlertStyle(
-                                    isCloseButton: false,
-                                    isOverlayTapDismiss: false,
-                                    titleStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  content: Container(),
-                                  buttons: [
-                                    DialogButton(
-                                        color: appColor,
-                                        child: Center(
-                                          child: Text(
-                                            "Next Question",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (widget.questionIndex ==
-                                                (Provider.of<DataProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .gameModel
-                                                        .levels[
-                                                            widget.levelIndex]
-                                                        .questions
-                                                        .length -
-                                                    1)) {
-                                              // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-                                              AppRoutes.makeFirst(
-                                                  context, PlayScreen());
-                                            } else {
-                                              Provider.of<DataProvider>(context,
-                                                      listen: false)
-                                                  .incrementCounter();
-                                              AppRoutes.push(
-                                                  context,
-                                                  HomePage(
-                                                    levelIndex:
-                                                        widget.levelIndex,
-                                                  ));
-                                            }
-
-                                            // User.userData.index = User.userData.index + 1;
-                                          });
-                                        })
-                                  ],
-                                ).show();
+                                wrongAnswerResponse();
                               }
                             }
                             setState(() {});
@@ -525,6 +400,102 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         ],
       ),
     );
+  }
+
+  void wrongAnswerResponse() {
+    width = MediaQuery.of(context).size.width * .8;
+    height = MediaQuery.of(context).size.height * .3;
+    Provider.of<DataProvider>(context, listen: false)
+        .gameModel
+        .levels[widget.levelIndex]
+        .questions[widget.questionIndex]
+        .correctlyAnswered = false;
+    Provider.of<DataProvider>(context, listen: false)
+        .gameModel
+        .levels[widget.levelIndex]
+        .questions[widget.questionIndex]
+        .lockedTill = DateTime.now().add(Duration(minutes: 30));
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "That's Wrong!\nTry it after 30 minutes.",
+      style: AlertStyle(
+        isCloseButton: false,
+        isOverlayTapDismiss: false,
+        titleStyle: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      content: Container(),
+      buttons: [
+        DialogButton(
+            color: appColor,
+            child: Center(
+              child: Text(
+                "Next Question",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                if (widget.questionIndex ==
+                    (Provider.of<DataProvider>(context, listen: false)
+                            .gameModel
+                            .levels[widget.levelIndex]
+                            .questions
+                            .length -
+                        1)) {
+                  // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+                  AppRoutes.makeFirst(context, PlayScreen());
+                } else {
+                  Provider.of<DataProvider>(context, listen: false)
+                      .incrementCounter();
+                  AppRoutes.push(
+                      context,
+                      HomePage(
+                        levelIndex: widget.levelIndex,
+                      ));
+                }
+
+                // User.userData.index = User.userData.index + 1;
+              });
+            })
+      ],
+    ).show();
+  }
+
+  void correctAnswerResponse() {
+    Provider.of<DataProvider>(context, listen: false).addCoins(5);
+    Provider.of<DataProvider>(context, listen: false)
+        .gameModel
+        .levels[widget.levelIndex]
+        .questions[widget.questionIndex]
+        .correctlyAnswered = true;
+    // Navigator.of(context).pop();
+    setState(() {
+      if (widget.questionIndex ==
+          (Provider.of<DataProvider>(context, listen: false)
+                  .gameModel
+                  .levels[widget.levelIndex]
+                  .questions
+                  .length -
+              1)) {
+        // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+        AppRoutes.makeFirst(context, PlayScreen());
+      } else {
+        Provider.of<DataProvider>(context, listen: false).incrementCounter();
+        AppRoutes.push(
+            context,
+            HomePage(
+              levelIndex: widget.levelIndex,
+            ));
+      }
+
+      // User.userData.index = User.userData.index + 1;
+    });
   }
 
   Widget _answerContainer(String value, int index, var correctAnswer) {
@@ -576,100 +547,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       ),
       onTap: () async {
         if (value.toString() != correctAnswer.toString()) {
-          width = MediaQuery.of(context).size.width * .8;
-          height = MediaQuery.of(context).size.height * .3;
-          Provider.of<DataProvider>(context, listen: false)
-              .gameModel
-              .levels[widget.levelIndex]
-              .questions[widget.questionIndex]
-              .correctlyAnswered = false;
-          Provider.of<DataProvider>(context, listen: false)
-              .gameModel
-              .levels[widget.levelIndex]
-              .questions[widget.questionIndex]
-              .lockedTill = DateTime.now().add(Duration(minutes: 30));
-          Alert(
-            context: context,
-            type: AlertType.error,
-            title: "That's Wrong!\nTry it after 30 minutes.",
-            style: AlertStyle(
-              isCloseButton: false,
-              isOverlayTapDismiss: false,
-              titleStyle: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
-            ),
-            content: Container(),
-            buttons: [
-              DialogButton(
-                  color: appColor,
-                  child: Center(
-                    child: Text(
-                      "Next Question",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      if (widget.questionIndex ==
-                          (Provider.of<DataProvider>(context, listen: false)
-                                  .gameModel
-                                  .levels[widget.levelIndex]
-                                  .questions
-                                  .length -
-                              1)) {
-                        // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-                        AppRoutes.makeFirst(context, PlayScreen());
-                      } else {
-                        Provider.of<DataProvider>(context, listen: false)
-                            .incrementCounter();
-                        AppRoutes.push(
-                            context,
-                            HomePage(
-                              levelIndex: widget.levelIndex,
-                            ));
-                      }
-
-                      // User.userData.index = User.userData.index + 1;
-                    });
-                  })
-            ],
-          ).show();
+          wrongAnswerResponse();
         } else {
-          Provider.of<DataProvider>(context, listen: false).addCoins(5);
-          Provider.of<DataProvider>(context, listen: false)
-              .gameModel
-              .levels[widget.levelIndex]
-              .questions[widget.questionIndex]
-              .correctlyAnswered = true;
-          // Navigator.of(context).pop();
-          setState(() {
-            if (widget.questionIndex ==
-                (Provider.of<DataProvider>(context, listen: false)
-                        .gameModel
-                        .levels[widget.levelIndex]
-                        .questions
-                        .length -
-                    1)) {
-              // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-              AppRoutes.makeFirst(context, PlayScreen());
-            } else {
-              Provider.of<DataProvider>(context, listen: false)
-                  .incrementCounter();
-              AppRoutes.push(
-                  context,
-                  HomePage(
-                    levelIndex: widget.levelIndex,
-                  ));
-            }
-
-            // User.userData.index = User.userData.index + 1;
-          });
+          correctAnswerResponse();
         }
 
         if (widget.questionIndex ==
