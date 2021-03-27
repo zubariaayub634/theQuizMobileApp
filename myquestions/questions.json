@@ -3,6 +3,31 @@
         {
             "Questions": [
                 {
+                    "type": 4,
+                    "correctAnswer": "dog",
+                    "question": "Which animal barks?",
+                    "option": [
+                        {
+                            "optionName": "d"
+                        },
+                        {
+                            "optionName": "c"
+                        },
+                        {
+                            "optionName": "o"
+                        },
+                        {
+                            "optionName": "a"
+                        },
+                        {
+                            "optionName": "g"
+                        },
+                        {
+                            "optionName": "b"
+                        }
+                    ]
+                },
+                {
                     "type": 0,
                     "correctAnswer": "Islamabad",
                     "question": "What is capital of Pakistan?",

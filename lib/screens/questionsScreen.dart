@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
+import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/audioQuestion.dart';
 import 'package:thequestion/screens/homePage.dart';
 import 'package:thequestion/screens/videoQuestion.dart';
@@ -63,8 +64,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   var width;
   var height;
+  List<String> displayedAnswer = List<String>();
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -144,38 +148,62 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             ),
                           ],
                         )
-                      : Column(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.all(20),
-                                width: MediaQuery.of(context).size.width / 1.1,
-                                height: MediaQuery.of(context).size.height / 3,
-                                decoration: BoxDecoration(
-                                    color: lighAppColor.withOpacity(0.2),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    )),
-                                child: Center(
-                                    child: Image(
-                                  image: NetworkImage(Provider.of<DataProvider>(
-                                          context,
+                      : Provider.of<DataProvider>(context, listen: false)
+                                  .gameModel
+                                  .levels[widget.levelIndex]
+                                  .questions[widget.questionIndex]
+                                  .type ==
+                              4
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        .008),
+                                _questionContainer(Provider.of<DataProvider>(
+                                        context,
+                                        listen: false)
+                                    .gameModel
+                                    .levels[widget.levelIndex]
+                                    .questions[widget.questionIndex]
+                                    .question
+                                    .toString()),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.all(20),
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.1,
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    decoration: BoxDecoration(
+                                        color: lighAppColor.withOpacity(0.2),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        )),
+                                    child: Center(
+                                        child: Image(
+                                      image: NetworkImage(
+                                          Provider.of<DataProvider>(context,
+                                                  listen: false)
+                                              .gameModel
+                                              .levels[widget.levelIndex]
+                                              .questions[widget.questionIndex]
+                                              .url),
+                                      fit: BoxFit.fill,
+                                    ))),
+                                _questionContainer(
+                                  Provider.of<DataProvider>(context,
                                           listen: false)
                                       .gameModel
                                       .levels[widget.levelIndex]
                                       .questions[widget.questionIndex]
-                                      .url),
-                                  fit: BoxFit.fill,
-                                ))),
-                            _questionContainer(
-                              Provider.of<DataProvider>(context, listen: false)
-                                  .gameModel
-                                  .levels[widget.levelIndex]
-                                  .questions[widget.questionIndex]
-                                  .question
-                                  .toString(),
+                                      .question
+                                      .toString(),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
           (Provider.of<DataProvider>(context, listen: false)
                   .gameModel
                   .levels[widget.levelIndex]
@@ -270,38 +298,230 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         ],
                       ),
                     )
-                  : Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, int index) {
-                          return _answerContainer(
-                            Provider.of<DataProvider>(context, listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[widget.questionIndex]
-                                .options[index]
-                                .optionName
-                                .toString(),
-                            index,
-                            Provider.of<DataProvider>(context, listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[widget.questionIndex]
-                                .correctAnswer,
-                          );
-                        },
-                        itemCount:
-                            Provider.of<DataProvider>(context, listen: false)
+                  : Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[widget.questionIndex]
+                              .type ==
+                          4
+                      ? _textAnswerContainer(
+                          Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[widget.questionIndex]
+                              .correctAnswer,
+                          Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[widget.questionIndex]
+                              .options)
+                      : Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (context, int index) {
+                              return _answerContainer(
+                                Provider.of<DataProvider>(context,
+                                        listen: false)
+                                    .gameModel
+                                    .levels[widget.levelIndex]
+                                    .questions[widget.questionIndex]
+                                    .options[index]
+                                    .optionName
+                                    .toString(),
+                                index,
+                                Provider.of<DataProvider>(context,
+                                        listen: false)
+                                    .gameModel
+                                    .levels[widget.levelIndex]
+                                    .questions[widget.questionIndex]
+                                    .correctAnswer,
+                              );
+                            },
+                            itemCount: Provider.of<DataProvider>(context,
+                                    listen: false)
                                 .gameModel
                                 .levels[widget.levelIndex]
                                 .questions[widget.questionIndex]
                                 .options
                                 .length,
-                      ),
-                    )),
+                          ),
+                        )),
+        ],
+      ),
+    );
+  }
 
-          // _answerContainer("Al Wakrah", "b"),
-          // _answerContainer("Doha", "c"),
-          // _questionContainer(widget.questions[widget.index].question.toString()),
+  Widget _textAnswerContainer(String correctAnswer, List<Options> options) {
+    int charsPerRow = 4;
+    return Expanded(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Expanded(
+            child: Container(
+              width: width * 0.5,
+              child: Center(
+                child: ListView.builder(
+                  itemCount: correctAnswer.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            (index < displayedAnswer.length)
+                                ? displayedAnswer[index]
+                                    .toString()
+                                    .toUpperCase()
+                                : " ",
+                            style: TextStyle(color: appColor, fontSize: 25),
+                          ),
+                          Container(
+                            width: 40,
+                            color: Colors.grey,
+                            height: 5,
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Expanded(
+            child: Container(
+              width: width * 0.6,
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: charsPerRow,
+                  ),
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: MaterialButton(
+                          onPressed: () {
+                            print(options[index].optionName);
+                            displayedAnswer.add(options[index].optionName);
+                            if (displayedAnswer.length >=
+                                correctAnswer.length) {
+                              bool matches = true;
+                              for (int i = 0; i < correctAnswer.length; i++) {
+                                if (displayedAnswer[i] != correctAnswer[i]) {
+                                  matches = false;
+                                  break;
+                                }
+                              }
+                              if (matches) {
+                                if (widget.questionIndex ==
+                                    (Provider.of<DataProvider>(context,
+                                                listen: false)
+                                            .gameModel
+                                            .levels[widget.levelIndex]
+                                            .questions
+                                            .length -
+                                        1)) {
+                                  // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+                                  AppRoutes.makeFirst(context, PlayScreen());
+                                } else {
+                                  Provider.of<DataProvider>(context,
+                                          listen: false)
+                                      .incrementCounter();
+                                  AppRoutes.push(
+                                      context,
+                                      HomePage(
+                                        levelIndex: widget.levelIndex,
+                                      ));
+                                }
+                                setState(() {});
+                              } else {
+                                Alert(
+                                  context: context,
+                                  type: AlertType.error,
+                                  title:
+                                      "That's Wrong!\nTry it after 30 minutes.",
+                                  style: AlertStyle(
+                                    isCloseButton: false,
+                                    isOverlayTapDismiss: false,
+                                    titleStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  content: Container(),
+                                  buttons: [
+                                    DialogButton(
+                                        color: appColor,
+                                        child: Center(
+                                          child: Text(
+                                            "Next Question",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            if (widget.questionIndex ==
+                                                (Provider.of<DataProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .gameModel
+                                                        .levels[
+                                                            widget.levelIndex]
+                                                        .questions
+                                                        .length -
+                                                    1)) {
+                                              // Provider.of<DataProvider>(context, listen: false).setCounterZero();
+                                              AppRoutes.makeFirst(
+                                                  context, PlayScreen());
+                                            } else {
+                                              Provider.of<DataProvider>(context,
+                                                      listen: false)
+                                                  .incrementCounter();
+                                              AppRoutes.push(
+                                                  context,
+                                                  HomePage(
+                                                    levelIndex:
+                                                        widget.levelIndex,
+                                                  ));
+                                            }
+
+                                            // User.userData.index = User.userData.index + 1;
+                                          });
+                                        })
+                                  ],
+                                ).show();
+                              }
+                            }
+                            setState(() {});
+                          },
+                          child: Center(
+                            child: Text(
+                              options[index]
+                                  .optionName
+                                  .toString()
+                                  .toUpperCase(),
+                              style: TextStyle(color: appColor),
+                            ),
+                          ),
+                        ),
+                        decoration:
+                            BoxDecoration(border: Border.all(color: appColor)),
+                      ),
+                    );
+                  }),
+            ),
+          ),
         ],
       ),
     );
@@ -333,33 +553,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             bottomLeft: Radius.circular(10))),
                     child: Container(
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // Container(
-                          //   alignment: Alignment.center,
-                          //   clipBehavior: Clip.hardEdge,
-                          //   margin: EdgeInsets.only(left: 10, right: 10),
-                          //   height: MediaQuery.of(context).size.height / 30,
-                          //   // padding: EdgeInsets.all(1),
-                          //   width: MediaQuery.of(context).size.height / 30,
-                          //   // clipBehavior: Clip.antiAlias,
-                          //   decoration: BoxDecoration(
-                          //     shape: BoxShape.circle,
-                          //     gradient: LinearGradient(
-                          //         colors: [lighAppColor, appColor],
-                          //         begin: FractionalOffset.topCenter,
-                          //         end: FractionalOffset.bottomCenter,
-                          //         tileMode: TileMode.clamp),
-                          //     color: Colors.white,
-                          //   ),
-                          //   child: Text(options,
-                          //       style: TextStyle(
-                          //           height: 1,
-                          //           color: Color(0xFFFFFFFF),
-                          //           fontSize: 18,
-                          //           fontWeight: FontWeight.w500)),
-                          // ),
-
                           Container(
                             constraints: BoxConstraints(
                               maxWidth: MediaQuery.of(context).size.width / 1.5,
