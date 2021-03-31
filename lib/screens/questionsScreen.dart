@@ -468,7 +468,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   }
 
   void correctAnswerResponse() {
-    Provider.of<DataProvider>(context, listen: false).addCoins(5);
+    Provider.of<DataProvider>(context, listen: false).incrementCoins();
     Provider.of<DataProvider>(context, listen: false)
         .gameModel
         .levels[widget.levelIndex]

@@ -47,15 +47,6 @@ class DataProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  addCoins(int x) {
-    if (coins > 0) {
-      return coins = coins + x;
-    } else {
-      coins = x;
-    }
-    notifyListeners();
-  }
-
   deductCoins(int x) {
     if (coins > x) {
       return coins = coins - x;
