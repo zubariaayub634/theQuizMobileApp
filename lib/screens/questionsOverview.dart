@@ -62,12 +62,16 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                           ));
                     },
                     child: QuestionCard(
-                        question:
-                            Provider.of<DataProvider>(context, listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[index]
-                                .question),
+                        Provider.of<DataProvider>(context, listen: false)
+                            .gameModel
+                            .levels[widget.levelIndex]
+                            .questions[index]
+                            .question,
+                        Provider.of<DataProvider>(context, listen: false)
+                            .gameModel
+                            .levels[widget.levelIndex]
+                            .questions[index]
+                            .correctlyAnswered),
                   );
                 }),
           ),
@@ -88,8 +92,7 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
                       fontWeight: FontWeight.w400),
                 ),
                 onPressed: () {
-                  Provider.of<DataProvider>(context, listen: false)
-                      .counter = 0;
+                  Provider.of<DataProvider>(context, listen: false).counter = 0;
                   AppRoutes.push(
                       context,
                       HomePage(
@@ -175,8 +178,9 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
 }
 
 class QuestionCard extends StatefulWidget {
-  final question;
-  QuestionCard({this.question});
+  final String question;
+  final bool status;
+  QuestionCard(this.question, this.status);
 
   @override
   _QuestionCardState createState() => _QuestionCardState();
@@ -198,6 +202,7 @@ class _QuestionCardState extends State<QuestionCard> {
             padding: const EdgeInsets.only(left: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "${widget.question}",
@@ -206,6 +211,15 @@ class _QuestionCardState extends State<QuestionCard> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                widget.status
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ),
+                      )
+                    : Container(),
               ],
             ),
           )),
