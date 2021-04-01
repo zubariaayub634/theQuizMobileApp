@@ -198,7 +198,11 @@ class _Levels extends State<Levels> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Text("Level $index",
+                                        child: Text(Provider.of<DataProvider>(
+                                            context,
+                                            listen: false)
+                                            .gameModel
+                                            .levels[index].name,
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 14)),

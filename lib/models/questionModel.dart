@@ -1,6 +1,6 @@
 class GameModel {
   final List<LevelModel> levels;
-  int coins=20;
+  int coins = 20;
 
   GameModel({
     this.levels,
@@ -18,8 +18,8 @@ class GameModel {
 
 class LevelModel {
   List<Question> questions;
-  int index;
-  LevelModel({this.questions, this.index});
+  String name;
+  LevelModel({this.questions, this.name});
 
   factory LevelModel.fromJson(Map<String, dynamic> json) {
     return LevelModel(
@@ -27,6 +27,7 @@ class LevelModel {
               .map((e) => Question.fromJson(e))
               .toList() ??
           [],
+      name: json['name'],
     );
   }
 

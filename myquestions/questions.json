@@ -1,6 +1,7 @@
 {
     "Levels": [
         {
+            "name": "Level 1",
             "Questions": [
                 {
                     "type": 4,
@@ -148,6 +149,7 @@
             ]
         },
         {
+            "name": "Level 2",
             "Questions": [
                 {
                     "type": 0,
@@ -270,6 +272,7 @@
             ]
         },
         {
+            "name": "Level 3",
             "Questions": [
                 {
                     "type": 0,
