@@ -4,6 +4,7 @@ class GameModel {
 
   GameModel({
     this.levels,
+    this.coins,
   });
 
   factory GameModel.fromJson(Map<String, dynamic> json) {
@@ -12,8 +13,16 @@ class GameModel {
               .map((e) => LevelModel.fromJson(e))
               .toList() ??
           [],
+      coins: json['coins'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'levels': levels.map((e) => e.toJson()).toList(),
+        'coins': coins,
+      };
+
+  void saveProgress() async {}
 }
 
 class LevelModel {
@@ -30,6 +39,11 @@ class LevelModel {
       name: json['name'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'questions': questions.map((e) => e.toJson()).toList(),
+        'name': name,
+      };
 
   double getCorrectlyAnsweredPercentage() {
     int totalCorrect = 0;
@@ -48,8 +62,26 @@ class Question {
   DateTime lockedTill = DateTime.now().subtract(Duration(days: 50));
   bool correctlyAnswered = false;
   List<Options> options;
-  Question(
-      {this.correctAnswer, this.url, this.options, this.question, this.type});
+
+  Question({
+    this.correctAnswer,
+    this.url,
+    this.options,
+    this.question,
+    this.type,
+    this.lockedTill,
+    this.correctlyAnswered,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'url': url,
+        'correctAnswer': correctAnswer,
+        'question': question,
+        'lockedTill': lockedTill,
+        'correctlyAnswered': correctlyAnswered,
+        'options': options,
+      };
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
@@ -60,6 +92,9 @@ class Question {
       url: json['url'] ?? "",
       question: json['question'] ?? "",
       correctAnswer: json['correctAnswer'] ?? "",
+      lockedTill: json['lockedTill'] ?? "",
+      correctlyAnswered:
+          (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
     );
   }
 }
