@@ -415,6 +415,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         .levels[widget.levelIndex]
         .questions[widget.questionIndex]
         .lockedTill = DateTime.now().add(Duration(minutes: 30));
+    Provider.of<DataProvider>(context, listen: false).gameModel.saveProgress();
     Alert(
       context: context,
       type: AlertType.error,
@@ -493,8 +494,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               levelIndex: widget.levelIndex,
             ));
       }
-
-      // User.userData.index = User.userData.index + 1;
+      Provider.of<DataProvider>(context, listen: false)
+          .gameModel
+          .saveProgress();
     });
   }
 

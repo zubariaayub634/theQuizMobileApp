@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 class GameModel {
   final List<LevelModel> levels;
   int coins = 20;
@@ -13,7 +17,7 @@ class GameModel {
               .map((e) => LevelModel.fromJson(e))
               .toList() ??
           [],
-      coins: json['coins'],
+      coins: json['coins'] ?? 20,
     );
   }
 
@@ -22,7 +26,26 @@ class GameModel {
         'coins': coins,
       };
 
-  void saveProgress() async {}
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/myquestions/questionsProgress.json')
+        .create(recursive: true);
+  }
+
+  void saveProgress() async {
+    print("entered save progress");
+    final file = await _localFile;
+
+    // Write the file.
+    file.writeAsString('${toJson()}');
+    print("exit save progress");
+  }
 }
 
 class LevelModel {
@@ -59,8 +82,8 @@ class Question {
   final url;
   final correctAnswer;
   final question;
-  DateTime lockedTill = DateTime.now().subtract(Duration(days: 50));
-  bool correctlyAnswered = false;
+  DateTime lockedTill;
+  bool correctlyAnswered;
   List<Options> options;
 
   Question({
@@ -70,8 +93,12 @@ class Question {
     this.question,
     this.type,
     this.lockedTill,
-    this.correctlyAnswered,
-  });
+    this.correctlyAnswered = false,
+  }) {
+    if (this.lockedTill == null) {
+      this.lockedTill = DateTime.now().subtract(Duration(days: 50));
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         'type': type,
@@ -92,9 +119,9 @@ class Question {
       url: json['url'] ?? "",
       question: json['question'] ?? "",
       correctAnswer: json['correctAnswer'] ?? "",
-      lockedTill: json['lockedTill'] ?? "",
-      correctlyAnswered:
-          (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
+      //lockedTill: json['lockedTill'] ?? "",
+      //correctlyAnswered:
+      //    (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
     );
   }
 }
