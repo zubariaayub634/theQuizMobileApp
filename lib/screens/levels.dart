@@ -106,7 +106,7 @@ class _Levels extends State<Levels> {
                     ),
                     Text(
                       // "$coins",
-                      "${Provider.of<DataProvider>(context, listen: false).coins}",
+                      "${Provider.of<DataProvider>(context, listen: false).gameModel.coins}",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(

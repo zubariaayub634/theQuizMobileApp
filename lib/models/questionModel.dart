@@ -1,5 +1,6 @@
 class GameModel {
   final List<LevelModel> levels;
+  int coins=20;
 
   GameModel({
     this.levels,

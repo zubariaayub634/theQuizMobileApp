@@ -5,7 +5,6 @@ class DataProvider extends ChangeNotifier {
   GameModel gameModel;
 
   int counter = 0;
-  int coins = 20;
 
   incrementCounter() {
     counter = counter + 1;
@@ -30,17 +29,17 @@ class DataProvider extends ChangeNotifier {
   // }
 
   reloadCoins(value) {
-    coins = value;
+    gameModel.coins = value;
     notifyListeners();
   }
 
   int get getCoins {
-    return coins;
+    return gameModel.coins;
   }
 
   incrementCoins() {
-    if (coins > 0) {
-      return coins = coins + 1;
+    if (gameModel.coins > 0) {
+      return gameModel.coins = gameModel.coins + 1;
     } else {}
     notifyListeners();
     // return coins = coins++;
@@ -48,17 +47,17 @@ class DataProvider extends ChangeNotifier {
   }
 
   deductCoins(int x) {
-    if (coins > x) {
-      return coins = coins - x;
+    if (gameModel.coins > x) {
+      return gameModel.coins = gameModel.coins - x;
     } else {
-      coins = 0;
+      gameModel.coins = 0;
     }
     notifyListeners();
   }
 
   decrementCoin() {
-    if (coins > 0) {
-      return coins--;
+    if (gameModel.coins > 0) {
+      return gameModel.coins--;
     } else {}
     notifyListeners();
   }
