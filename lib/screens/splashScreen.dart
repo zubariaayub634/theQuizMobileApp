@@ -13,8 +13,7 @@ Future<GameModel> getLevels(BuildContext context) async {
       .loadString("myquestions/questions.json");
 
   final jsonResult = json.decode(data);
-  print(jsonResult['Levels'][0]['Questions'][0]['option']);
-  GameModel gameModel = GameModel.fromJson(jsonResult);
+  GameModel gameModel = await GameModel.fromJson(jsonResult);
 
   return gameModel;
 }
@@ -52,8 +51,8 @@ class _SplashScreenState extends State<SplashScreen>
         Future.delayed(Duration(seconds: 0), () async {
           SharedPreferences _prefs = await SharedPreferences.getInstance();
           bool check = _prefs.containsKey('languageCode');
-          Provider.of<DataProvider>(context, listen: false)
-              .gameModel = await getLevels(context);
+          Provider.of<DataProvider>(context, listen: false).gameModel =
+              await getLevels(context);
           AppRoutes.push(context, PlayScreen());
           // Navigator.pushNamed(context, setLanguageRoute);
           // check

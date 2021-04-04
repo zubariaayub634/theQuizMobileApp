@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class GameModel {
-  final List<LevelModel> levels;
+  List<LevelModel> levels;
   int coins = 20;
 
   GameModel({
@@ -12,14 +12,16 @@ class GameModel {
     this.coins,
   });
 
-  factory GameModel.fromJson(Map<String, dynamic> json) {
-    return GameModel(
-      levels: (json['Levels'] as List)
+  static Future<GameModel> fromJson(Map<String, dynamic> json) async {
+    GameModel g = GameModel(
+      levels: (json['levels'] as List)
               .map((e) => LevelModel.fromJson(e))
               .toList() ??
           [],
       coins: json['coins'] ?? 20,
     );
+    await g.updateProgress();
+    return g;
   }
 
   Map<String, dynamic> toJson() => {
@@ -35,20 +37,35 @@ class GameModel {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/questionsProgress.json')
-        .create(recursive: true);
+    return File('$path/questionsProgress.json');
   }
 
-  void readFile() async {
-    File file = await _localFile; // 1
-    String fileContent = await file.readAsString(); // 2
+  Future<void> updateProgress() async {
+    try {
+      File file = File('${await _localPath}/questionsProgress.json');
+      String fileContent = await file.readAsString();
 
-    print('File Content: $fileContent');
+      final jsonData = json.decode(fileContent);
+      print(jsonData);
+      if (jsonData != null && jsonData['levels'] != null) {
+        levels.addAll((jsonData['levels'] as List)
+                .map((e) => LevelModel.fromJson(e))
+                .toList() ??
+            []);
+      }
+      if (jsonData != null && jsonData['coins'] != null) {
+        coins = coins ?? (jsonData['coins'] ?? 20);
+      }
+      print('File Content: $fileContent');
+    } catch (FileSystemException) {} //means no progress to update
   }
 
   void saveProgress() async {
     print("entered save progress");
-    final File file = await _localFile;
+    File file = await _localFile;
+    if (await file.exists() == false)
+      file = await File('${await _localPath}/questionsProgress.json')
+          .create(recursive: true);
 
     print("filepath");
     print(file.path);
@@ -62,9 +79,6 @@ class GameModel {
     // Write the file.
     file.writeAsString(jsonString);
     print("exit save progress");
-
-    await readFile();
-
   }
 }
 
@@ -74,8 +88,10 @@ class LevelModel {
   LevelModel({this.questions, this.name});
 
   factory LevelModel.fromJson(Map<String, dynamic> json) {
+    print("in level factory");
+    print(json);
     return LevelModel(
-      questions: (json['Questions'] as List)
+      questions: (json['questions'] as List)
               .map((e) => Question.fromJson(e))
               .toList() ??
           [],
@@ -125,21 +141,24 @@ class Question {
         'url': url,
         'correctAnswer': correctAnswer,
         'question': question,
-        'lockedTill': lockedTill.toIso8601String(),
+        'lockedTill': lockedTill.millisecondsSinceEpoch.toString(),
         'correctlyAnswered': correctlyAnswered.toString(),
         'options': options,
       };
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      options: (json['option'] as List).map((e) => e.toString()).toList() ?? [],
+      options:
+          (json['options'] as List).map((e) => e.toString()).toList() ?? [],
       type: json['type'] ?? "",
       url: json['url'] ?? "",
       question: json['question'] ?? "",
       correctAnswer: json['correctAnswer'] ?? "",
-      //lockedTill: json['lockedTill'] ?? "",
-      //correctlyAnswered:
-      //    (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
+      lockedTill: json['lockedTill'] == null
+          ? DateTime.now().subtract(Duration(days: 50))
+          : DateTime.fromMicrosecondsSinceEpoch(int.parse(json['lockedTill'])),
+      correctlyAnswered:
+          (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
     );
   }
 }

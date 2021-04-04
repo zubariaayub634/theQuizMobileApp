@@ -1,91 +1,91 @@
 {
-    "Levels": [
+    "levels": [
         {
             "name": "Level 1",
-            "Questions": [
+            "questions": [
                 {
                     "type": 4,
                     "correctAnswer": "dog",
                     "question": "Which animal barks?",
-                    "option": ["d","c","o","a","g","b"]
+                    "options": ["d","c","o","a","g","b"]
                 },
                 {
                     "type": 0,
                     "correctAnswer": "Islamabad",
                     "question": "What is capital of Pakistan?",
-                    "option": ["Islamabad","Lahore","Karachi","Multan"]
+                    "options": ["Islamabad","Lahore","Karachi","Multan"]
                 },
                 {
                     "type": 1,
                     "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/e4Gpia8/close-up-shot-of-an-african-lions-head_nua-16iil__550a727afff743a4e8c3ffd1ca68d508__P360.mp4",
                     "correctAnswer": "Lion",
                     "question": "Which Animal in video?",
-                    "option": ["Cat","Dog","Lion","Beer"]
+                    "options": ["Cat","Dog","Lion","Beer"]
                 },
                 {
                     "type": 3,
                     "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
                     "correctAnswer": "American",
                     "question": "Who is guy in this audio?",
-                    "option": ["American", "Indian", "Pakistani","African"]
+                    "options": ["American", "Indian", "Pakistani","African"]
                 },
                 {
                     "type": 0,
                     "correctAnswer": "Lahore",
                     "question": "Where badshahi Mosque Located?",
-                    "option": ["Islamabad","Lahore","Karachi", "Multan"]
+                    "options": ["Islamabad","Lahore","Karachi", "Multan"]
                 },
                 {
                     "type": 1,
                     "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/r6uQGb9/videoblocks-chengdu-research-base-of-giant-panda-breeding-or-panda-base-in-chengdu-china-asia-wild-animal-eating-bamboo-fauna-nature-wildlife-mammal-animal-in-zoo-zoological-gardens-rescue-center_suxn__beed2b9e8b11b492ee38eff26b410401__P360.mp4",
                     "correctAnswer": "Panda",
                     "question": "Which Animal in video?",
-                    "option": ["Cat","Panda","Lion","Beer"]
+                    "options": ["Cat","Panda","Lion","Beer"]
                 },
                 {
                     "type": 2,
                     "url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
                     "correctAnswer": "KFC",
                     "question": "Guess the Restaurant name?",
-                    "option": ["KFC","Maisonette","Cupshup","MC Donald"]
+                    "options": ["KFC","Maisonette","Cupshup","MC Donald"]
                 }
             ]
         },
         {
             "name": "Level 2",
-            "Questions": [
+            "questions": [
                 {
                     "type": 0,
                     "correctAnswer": "1947",
                     "question": "What Pakistan comes in the world map?",
-                    "option": ["1947","1999","2016","1865"]
+                    "options": ["1947","1999","2016","1865"]
                 },
                 {
                     "type": 1,
                     "url": "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/rZJIMvhmliwmde8a6/videoblocks-peacock-showing-its-tail-beautiful-bird-on-the-grass_h_2fuoy2b__10254998c69b064e648d8ab163b0a66b__P360.mp4",
                     "correctAnswer": "Peacock",
                     "question": "Which Bird in video have long Tail?",
-                    "option": ["Sparrow", "Hen","Peacock", "Parrot"]
+                    "options": ["Sparrow", "Hen","Peacock", "Parrot"]
                 },
                 {
                     "type": 3,
                     "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
                     "correctAnswer": "American",
                     "question": "Who is guy in this audio?",
-                    "option": [ "American","Indian","Pakistani","African"]
+                    "options": [ "American","Indian","Pakistani","African"]
                 },
                 {
                     "type": 0,
                     "correctAnswer": "Thomas Edison",
                     "question": "who invented Light bulb?",
-                    "option": ["billi gates","Thomas Edison","Quaid e Azam","Allama Iqbal"]
+                    "options": ["billi gates","Thomas Edison","Quaid e Azam","Allama Iqbal"]
                 },
                 {
                     "type": 1,
                     "url": "https://pic.pikbest.com/01/01/28/07q888piCmjH.mp4",
                     "correctAnswer": "Coka Cola",
                     "question": "Which drink is in video?",
-                    "option": ["Sprite","Coka Cola", "Beer","Dew"
+                    "options": ["Sprite","Coka Cola", "Beer","Dew"
                     ]
                 },
                 {
@@ -93,19 +93,19 @@
                     "url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
                     "correctAnswer": "KFC",
                     "question": "Guess the Restaunt name?",
-                    "option": [ "KFC","Maisonette","Cupshup","MC Donald"
+                    "options": [ "KFC","Maisonette","Cupshup","MC Donald"
                     ]
                 }
             ]
         },
         {
             "name": "Level 3",
-            "Questions": [
+            "questions": [
                 {
                     "type": 0,
                     "correctAnswer": "December 25, 1876",
                     "question": "When Quaid e  Azam born?",
-                    "option": ["Sep 25, 1876","December 25, 1876","January 25, 1876", "March 25, 1876"
+                    "options": ["Sep 25, 1876","December 25, 1876","January 25, 1876", "March 25, 1876"
                     ]
                 },
                 {
@@ -113,7 +113,7 @@
                     "url": "https://img.pikbest.com/video_listen/588ku_mpeg/19/04/10/953a4bfa7337e02a2d792024b7f86eef.mp4",
                     "correctAnswer": "Cat",
                     "question": "Which Animal you found there ?",
-                    "option": [
+                    "options": [
                         "Cat","Dog", "Lion", "Beer"
                     ]
                 },
@@ -121,21 +121,21 @@
                     "type": 0,
                     "correctAnswer": "Steve Jobs",
                     "question": "Who Invented IPhone?",
-                    "option": ["Bill Gates","Steve Jobs","Allama Iqbal","Salman Khan"]
+                    "options": ["Bill Gates","Steve Jobs","Allama Iqbal","Salman Khan"]
                 },
                 {
                     "type": 2,
                     "url": "https://upload.wikimedia.org/wikipedia/en/5/58/River_Ravi_Pakistan.jpg",
                     "correctAnswer": "River Ravi",
                     "question": "Which River is in Image?",
-                    "option": [ "River Ravi","Jhelum", "Chenab","Mangla"]
+                    "options": [ "River Ravi","Jhelum", "Chenab","Mangla"]
                 },
                 {
                     "type": 3,
                     "url": "https://d11b76aq44vj33.cloudfront.net/media/645/audio/5adeecf6e08d8.mp3",
                     "correctAnswer": "American",
                     "question": "Who is guy in this audio?",
-                    "option": ["American", "Indian","Pakistani","Africian"]
+                    "options": ["American", "Indian","Pakistani","Africian"]
                 }
             ]
         }
