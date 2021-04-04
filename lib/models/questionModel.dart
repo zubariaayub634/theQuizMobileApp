@@ -14,13 +14,16 @@ class GameModel {
 
   static Future<GameModel> fromJson(Map<String, dynamic> json) async {
     GameModel g = GameModel(
-      levels: (json['levels'] as List)
-              .map((e) => LevelModel.fromJson(e))
-              .toList() ??
-          [],
-      coins: json['coins'] ?? 20,
+      levels: []
     );
     await g.updateProgress();
+    if (g.levels.length == 0) {
+      g.levels = (json['levels'] as List)
+              .map((e) => LevelModel.fromJson(e))
+              .toList() ??
+          [];
+      g.coins = json['coins'] ?? 20;
+    }
     return g;
   }
 
