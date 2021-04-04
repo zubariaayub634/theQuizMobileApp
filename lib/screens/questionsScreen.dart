@@ -278,7 +278,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                     .levels[widget.levelIndex]
                                     .questions[widget.questionIndex]
                                     .options[index]
-                                    .optionName
                                     .toString(),
                                 index,
                                 Provider.of<DataProvider>(context,
@@ -303,7 +302,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     );
   }
 
-  Widget _textAnswerContainer(String correctAnswer, List<Options> options) {
+  Widget _textAnswerContainer(String correctAnswer, List<String> options) {
     int charsPerRow = 4;
     return Expanded(
       child: Column(
@@ -361,8 +360,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       child: Container(
                         child: MaterialButton(
                           onPressed: () {
-                            print(options[index].optionName);
-                            displayedAnswer.add(options[index].optionName);
+                            print(options[index]);
+                            displayedAnswer.add(options[index]);
                             if (displayedAnswer.length >=
                                 correctAnswer.length) {
                               bool matches = true;
@@ -383,7 +382,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           child: Center(
                             child: Text(
                               options[index]
-                                  .optionName
                                   .toString()
                                   .toUpperCase(),
                               style: TextStyle(color: appColor),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -34,17 +35,36 @@ class GameModel {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/myquestions/questionsProgress.json')
+    return File('$path/questionsProgress.json')
         .create(recursive: true);
+  }
+
+  void readFile() async {
+    File file = await _localFile; // 1
+    String fileContent = await file.readAsString(); // 2
+
+    print('File Content: $fileContent');
   }
 
   void saveProgress() async {
     print("entered save progress");
-    final file = await _localFile;
+    final File file = await _localFile;
+
+    print("filepath");
+    print(file.path);
+
+    Map<String, dynamic> json = toJson();
+
+    print(json);
+
+    String jsonString = jsonEncode(json);
 
     // Write the file.
-    file.writeAsString('${toJson()}');
+    file.writeAsString(jsonString);
     print("exit save progress");
+
+    await readFile();
+
   }
 }
 
@@ -84,7 +104,7 @@ class Question {
   final question;
   DateTime lockedTill;
   bool correctlyAnswered;
-  List<Options> options;
+  List<String> options;
 
   Question({
     this.correctAnswer,
@@ -105,16 +125,14 @@ class Question {
         'url': url,
         'correctAnswer': correctAnswer,
         'question': question,
-        'lockedTill': lockedTill,
-        'correctlyAnswered': correctlyAnswered,
+        'lockedTill': lockedTill.toIso8601String(),
+        'correctlyAnswered': correctlyAnswered.toString(),
         'options': options,
       };
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      options:
-          (json['option'] as List).map((e) => Options.fromJson(e)).toList() ??
-              [],
+      options: (json['option'] as List).map((e) => e.toString()).toList() ?? [],
       type: json['type'] ?? "",
       url: json['url'] ?? "",
       question: json['question'] ?? "",
@@ -122,18 +140,6 @@ class Question {
       //lockedTill: json['lockedTill'] ?? "",
       //correctlyAnswered:
       //    (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
-    );
-  }
-}
-
-class Options {
-  var optionName;
-
-  Options({this.optionName});
-
-  factory Options.fromJson(Map<String, dynamic> json) {
-    return Options(
-      optionName: json['optionName'] ?? "",
     );
   }
 }
