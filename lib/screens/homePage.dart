@@ -38,6 +38,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  bool displayHint = false;
+
   // @override
   // void initState() {
   //   //setlanguage();
@@ -64,13 +66,14 @@ class _HomePageState extends State<HomePage> {
     print("pending coins: " + coins.toString());
 
     return Scaffold(
-      bottomNavigationBar:  BottomNavigation(
-              hint: Provider.of<DataProvider>(context, listen: false)
-                  .gameModel
-                  .levels[widget.levelIndex]
-                  .questions[index]
-                  .correctAnswer,
-            ),
+      bottomNavigationBar: BottomNavigation(
+        hint: Provider.of<DataProvider>(context, listen: false)
+            .gameModel
+            .levels[widget.levelIndex]
+            .questions[index]
+            .correctAnswer,
+        displayPrompt: displayHint,
+      ),
       // appBar: UpperBar(
       //   barName: "Questions",
       // ),
@@ -138,9 +141,13 @@ class _HomePageState extends State<HomePage> {
       body: view == 0
           ? Center(
               child: QuestionsScreen(
-                questionIndex: index,
-                levelIndex: widget.levelIndex,
-              ),
+                  questionIndex: index,
+                  levelIndex: widget.levelIndex,
+                  timerTrigger: () {
+                    setState(() {
+                      displayHint = true;
+                    });
+                  }),
             )
           : view == 1
               ? SubmitAnswer()

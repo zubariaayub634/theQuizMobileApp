@@ -16,7 +16,12 @@ import 'package:thequestion/screens/playscreen.dart';
 class QuestionsScreen extends StatefulWidget {
   final int questionIndex;
   final int levelIndex;
-  QuestionsScreen({this.questionIndex, this.levelIndex});
+  final Function timerTrigger;
+  QuestionsScreen({
+    this.questionIndex,
+    this.levelIndex,
+    this.timerTrigger,
+  });
 
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();
@@ -33,6 +38,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 30), () {
+      widget.timerTrigger();
+    });
     interstitialAd = AdmobInterstitial(
       adUnitId: getInterstitialAdUnitId(),
       listener: (AdmobAdEvent event, Map<String, dynamic> args) {
@@ -381,9 +389,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           },
                           child: Center(
                             child: Text(
-                              options[index]
-                                  .toString()
-                                  .toUpperCase(),
+                              options[index].toString().toUpperCase(),
                               style: TextStyle(color: appColor),
                             ),
                           ),

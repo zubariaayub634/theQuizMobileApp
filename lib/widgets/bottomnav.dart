@@ -5,8 +5,12 @@ import 'package:thequestion/Provider/dataProvider.dart';
 
 class BottomNavigation extends StatelessWidget {
   final String hint;
+  final bool displayPrompt;
 
-  BottomNavigation({this.hint});
+  BottomNavigation({
+    this.hint,
+    this.displayPrompt = false,
+  });
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,9 +21,13 @@ class BottomNavigation extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            displayPrompt
+                ? Container(child: Text("Do you need a hint?"))
+                : Container(),
             GestureDetector(
                 onTap: () {
-                  Provider.of<DataProvider>(context, listen: false).deductCoins(5);
+                  Provider.of<DataProvider>(context, listen: false)
+                      .deductCoins(5);
                   ConstValues().hintDialog(context, hint);
                 },
                 child: Icon(
