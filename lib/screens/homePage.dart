@@ -12,7 +12,6 @@ import 'package:thequestion/screens/resultScreen.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
 import 'package:thequestion/widgets/bottomnav.dart';
-import 'package:thequestion/widgets/noenoughcoins.dart';
 import 'coinsscreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -65,9 +64,7 @@ class _HomePageState extends State<HomePage> {
     print("pending coins: " + coins.toString());
 
     return Scaffold(
-      bottomNavigationBar: coins == 0
-          ? NotEnoughCoins()
-          : BottomNavigation(
+      bottomNavigationBar:  BottomNavigation(
               hint: Provider.of<DataProvider>(context, listen: false)
                   .gameModel
                   .levels[widget.levelIndex]
