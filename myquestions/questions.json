@@ -10,6 +10,12 @@
                     "options": ["d","c","o","a","g","b"]
                 },
                 {
+                    "type": 5,
+                    "correctAnswer": "cat",
+                    "question": "Which animal meows?",
+                    "options": []
+                },
+                {
                     "type": 0,
                     "correctAnswer": "Islamabad",
                     "question": "What is capital of Pakistan?",

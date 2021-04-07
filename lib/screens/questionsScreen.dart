@@ -133,7 +133,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             ),
                           ],
                         )
-                      : type == 4
+                      : type == 4 || type == 5
                           ? Column(
                               children: [
                                 SizedBox(
@@ -276,36 +276,67 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               .levels[widget.levelIndex]
                               .questions[widget.questionIndex]
                               .options)
-                      : Expanded(
-                          child: ListView.builder(
-                            itemBuilder: (context, int index) {
-                              return _answerContainer(
-                                Provider.of<DataProvider>(context,
+                      : type == 5
+                          ? _textFieldAnswerContainer(
+                              Provider.of<DataProvider>(context, listen: false)
+                                  .gameModel
+                                  .levels[widget.levelIndex]
+                                  .questions[widget.questionIndex]
+                                  .correctAnswer,
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                itemBuilder: (context, int index) {
+                                  return _answerContainer(
+                                    Provider.of<DataProvider>(context,
+                                            listen: false)
+                                        .gameModel
+                                        .levels[widget.levelIndex]
+                                        .questions[widget.questionIndex]
+                                        .options[index]
+                                        .toString(),
+                                    index,
+                                    Provider.of<DataProvider>(context,
+                                            listen: false)
+                                        .gameModel
+                                        .levels[widget.levelIndex]
+                                        .questions[widget.questionIndex]
+                                        .correctAnswer,
+                                  );
+                                },
+                                itemCount: Provider.of<DataProvider>(context,
                                         listen: false)
                                     .gameModel
                                     .levels[widget.levelIndex]
                                     .questions[widget.questionIndex]
-                                    .options[index]
-                                    .toString(),
-                                index,
-                                Provider.of<DataProvider>(context,
-                                        listen: false)
-                                    .gameModel
-                                    .levels[widget.levelIndex]
-                                    .questions[widget.questionIndex]
-                                    .correctAnswer,
-                              );
-                            },
-                            itemCount: Provider.of<DataProvider>(context,
-                                    listen: false)
-                                .gameModel
-                                .levels[widget.levelIndex]
-                                .questions[widget.questionIndex]
-                                .options
-                                .length,
-                          ),
-                        )),
+                                    .options
+                                    .length,
+                              ),
+                            )),
         ],
+      ),
+    );
+  }
+
+  Widget _textFieldAnswerContainer(String correctAnswer) {
+    return Expanded(
+      child: Center(
+        child: Container(
+          width: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Tap to type answer"),
+              TextFormField(
+                onChanged: (entry) {
+                  if (entry.toLowerCase() == correctAnswer.toLowerCase()) {
+                    correctAnswerResponse();
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
