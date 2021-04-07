@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/adMob.dart/AddMob.dart';
-import 'package:thequestion/models/questionModel.dart';
 import 'package:thequestion/screens/audioQuestion.dart';
 import 'package:thequestion/screens/homePage.dart';
+import 'package:thequestion/screens/levels.dart';
 import 'package:thequestion/screens/videoQuestion.dart';
 import 'package:thequestion/utils/colors.dart';
 import 'package:thequestion/utils/routes.dart';
@@ -483,7 +483,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   .length -
               1)) {
         // Provider.of<DataProvider>(context, listen: false).setCounterZero();
-        AppRoutes.makeFirst(context, PlayScreen());
+        AppRoutes.makeFirst(context, Levels());
       } else {
         Provider.of<DataProvider>(context, listen: false).incrementCounter();
         AppRoutes.push(
