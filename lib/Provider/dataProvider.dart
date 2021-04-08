@@ -38,9 +38,9 @@ class DataProvider extends ChangeNotifier {
   }
 
   incrementCoins() {
-    if (gameModel.coins > 0) {
+    if (gameModel.coins >= 0) {
       return gameModel.coins = gameModel.coins + 1;
-    } else {}
+    } else {return gameModel.coins = 1;}
     notifyListeners();
     // return coins = coins++;
     // notifyListeners();
