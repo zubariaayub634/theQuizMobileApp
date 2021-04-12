@@ -40,16 +40,17 @@ class DataProvider extends ChangeNotifier {
   incrementCoins() {
     if (gameModel.coins >= 0) {
       return gameModel.coins = gameModel.coins + 1;
-    } else {return gameModel.coins = 1;}
+    } else {
+      return gameModel.coins = 1;
+    }
     notifyListeners();
     // return coins = coins++;
     // notifyListeners();
   }
 
   deductCoins(int x) {
-    if (gameModel.coins > x) {
-      return gameModel.coins = gameModel.coins - x;
-    } else {
+    gameModel.coins = gameModel.coins - x;
+    if (gameModel.coins < 0) {
       gameModel.coins = 0;
     }
     notifyListeners();

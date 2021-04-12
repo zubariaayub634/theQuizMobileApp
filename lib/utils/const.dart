@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:thequestion/Provider/dataProvider.dart';
 import 'package:thequestion/utils/colors.dart';
 
+const int hintCost = 5;
+
 class ConstValues {
   var width, height;
   coinsBuyDialog(BuildContext context) async {
@@ -170,8 +172,8 @@ class ConstValues {
                         Text(
                           Provider.of<DataProvider>(context, listen: false)
                                       .gameModel
-                                      .coins <=
-                                  0
+                                      .coins <
+                                  hintCost
                               ? "Not Enough Coins"
                               : hint.toString(),
                           style: TextStyle(
