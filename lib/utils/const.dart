@@ -123,6 +123,12 @@ class ConstValues {
   void hintDialog(BuildContext context, String hint) async {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    bool showHint = false;
+    if (Provider.of<DataProvider>(context, listen: false).gameModel.coins >=
+        hintCost) {
+      Provider.of<DataProvider>(context, listen: false).deductCoins(hintCost);
+      showHint = true;
+    }
     showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -170,12 +176,7 @@ class ConstValues {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          Provider.of<DataProvider>(context, listen: false)
-                                      .gameModel
-                                      .coins <
-                                  hintCost
-                              ? "Not Enough Coins"
-                              : hint.toString(),
+                          showHint ? hint.toString() : "Not Enough Coins",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

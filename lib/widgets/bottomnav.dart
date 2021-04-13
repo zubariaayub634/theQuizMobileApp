@@ -27,12 +27,6 @@ class BottomNavigation extends StatelessWidget {
             GestureDetector(
                 onTap: () {
                   ConstValues().hintDialog(context, hint);
-                  if (Provider.of<DataProvider>(context, listen: false)
-                          .gameModel
-                          .coins >=
-                      hintCost)
-                    Provider.of<DataProvider>(context, listen: false)
-                        .deductCoins(hintCost);
                 },
                 child: Icon(
                   Icons.lightbulb_outline_rounded,
