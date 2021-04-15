@@ -452,6 +452,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         .lockedTill = DateTime.now().add(Duration(minutes: 30));
     Provider.of<DataProvider>(context, listen: false).gameModel.saveProgress();
     Alert(
+      onWillPopActive: true,
       context: context,
       type: AlertType.error,
       title: "That's Wrong!\nTry it after 30 minutes.",
