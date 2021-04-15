@@ -13,9 +13,7 @@ class GameModel {
   });
 
   static Future<GameModel> fromJson(Map<String, dynamic> json) async {
-    GameModel g = GameModel(
-      levels: []
-    );
+    GameModel g = GameModel(levels: []);
     await g.updateProgress();
     if (g.levels.length == 0) {
       g.levels = (json['levels'] as List)
@@ -144,7 +142,7 @@ class Question {
         'url': url,
         'correctAnswer': correctAnswer,
         'question': question,
-        'lockedTill': lockedTill.millisecondsSinceEpoch.toString(),
+        'lockedTill': lockedTill.toIso8601String(),
         'correctlyAnswered': correctlyAnswered.toString(),
         'options': options,
       };
@@ -159,7 +157,7 @@ class Question {
       correctAnswer: json['correctAnswer'] ?? "",
       lockedTill: json['lockedTill'] == null
           ? DateTime.now().subtract(Duration(days: 50))
-          : DateTime.fromMicrosecondsSinceEpoch(int.parse(json['lockedTill'])),
+          : DateTime.parse(json['lockedTill']),
       correctlyAnswered:
           (json['correctlyAnswered'].toString() ?? "") == "true" ? true : false,
     );
