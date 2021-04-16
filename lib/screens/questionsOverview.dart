@@ -23,90 +23,93 @@ class _QuestionsOverviewState extends State<QuestionsOverview> {
     // TODO: implement build
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appColor,
-        leading: InkWell(
-            onTap: () {
-              AppRoutes.push(context, Levels());
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
-        centerTitle: true,
-        title: Text(
-          "Questions Overview",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: appColor,
+          leading: InkWell(
+              onTap: () {
+                AppRoutes.push(context, Levels());
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
+          centerTitle: true,
+          title: Text(
+            "Questions Overview",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: Provider.of<DataProvider>(context, listen: false)
-                    .gameModel
-                    .levels[widget.levelIndex]
-                    .questions
-                    .length,
-                itemBuilder: (BuildContext context, int index) {
-                  return MaterialButton(
-                    onPressed: () {
-                      print(index);
-                      Provider.of<DataProvider>(context, listen: false)
-                          .counter = index;
-                      AppRoutes.push(
-                          context,
-                          HomePage(
-                            levelIndex: widget.levelIndex,
-                          ));
-                    },
-                    child: QuestionCard(
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: Provider.of<DataProvider>(context, listen: false)
+                      .gameModel
+                      .levels[widget.levelIndex]
+                      .questions
+                      .length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MaterialButton(
+                      onPressed: () {
+                        print(index);
                         Provider.of<DataProvider>(context, listen: false)
-                            .gameModel
-                            .levels[widget.levelIndex]
-                            .questions[index]
-                            .question,
-                        Provider.of<DataProvider>(context, listen: false)
-                            .gameModel
-                            .levels[widget.levelIndex]
-                            .questions[index]
-                            .correctlyAnswered),
-                  );
-                }),
-          ),
-          Row(
-            children: [
-              MaterialButton(
-                color: appColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
+                            .counter = index;
+                        AppRoutes.push(
+                            context,
+                            HomePage(
+                              levelIndex: widget.levelIndex,
+                            ));
+                      },
+                      child: QuestionCard(
+                          Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[index]
+                              .question,
+                          Provider.of<DataProvider>(context, listen: false)
+                              .gameModel
+                              .levels[widget.levelIndex]
+                              .questions[index]
+                              .correctlyAnswered),
+                    );
+                  }),
+            ),
+            Row(
+              children: [
+                MaterialButton(
+                  color: appColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(18.0),
+                  ),
+                  animationDuration: Duration(seconds: 2),
+                  splashColor: Colors.blue[300],
+                  child: Text(
+                    "Proceed to Questions",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  onPressed: () {
+                    Provider.of<DataProvider>(context, listen: false).counter = 0;
+                    AppRoutes.push(
+                        context,
+                        HomePage(
+                          levelIndex: widget.levelIndex,
+                        ));
+                  },
                 ),
-                animationDuration: Duration(seconds: 2),
-                splashColor: Colors.blue[300],
-                child: Text(
-                  "Proceed to Questions",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400),
+                SizedBox(
+                  width: 10.0,
                 ),
-                onPressed: () {
-                  Provider.of<DataProvider>(context, listen: false).counter = 0;
-                  AppRoutes.push(
-                      context,
-                      HomePage(
-                        levelIndex: widget.levelIndex,
-                      ));
-                },
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.end,
-          ),
-        ],
+              ],
+              mainAxisAlignment: MainAxisAlignment.end,
+            ),
+          ],
+        ),
       ),
     );
   }

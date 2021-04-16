@@ -65,108 +65,111 @@ class _HomePageState extends State<HomePage> {
     print("current index" + index.toString());
     print("pending coins: " + coins.toString());
 
-    return Scaffold(
-      bottomNavigationBar: BottomNavigation(
-        hint: Provider.of<DataProvider>(context, listen: false)
-            .gameModel
-            .levels[widget.levelIndex]
-            .questions[index]
-            .correctAnswer,
-        displayPrompt: displayHint,
-      ),
-      // appBar: UpperBar(
-      //   barName: "Questions",
-      // ),
-
-      appBar: AppBar(
-        backgroundColor: appColor,
-        leading: InkWell(
-            onTap: () {
-              AppRoutes.push(
-                  context,
-                  QuestionsOverview(
-                    levelIndex: widget.levelIndex,
-                  ));
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
-        centerTitle: true,
-        title: Text(
-          "Question",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigation(
+          hint: Provider.of<DataProvider>(context, listen: false)
+              .gameModel
+              .levels[widget.levelIndex]
+              .questions[index]
+              .correctAnswer,
+          displayPrompt: displayHint,
         ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              AppRoutes.push(context, Coins());
-            },
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
-                  child: Image.asset("assets/img/coin.png",
-                      color: Colors.white,
-                      width: width * .1,
-                      // fit: BoxFit.cover,
-                      height: height * 0.039),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      // "coins : " + coins.toString() + "   ",
-                      "coins : ",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      // "$coins",
-                      "$coins",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "  ",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )
-                    //                 _scaffoldKey.currentState.showSnackBar(
-                    // SnackBar(content: ""));
-                  ],
-                ),
-              ],
-            ),
+        // appBar: UpperBar(
+        //   barName: "Questions",
+        // ),
+
+        appBar: AppBar(
+          backgroundColor: appColor,
+          leading: InkWell(
+              onTap: () {
+                AppRoutes.push(
+                    context,
+                    QuestionsOverview(
+                      levelIndex: widget.levelIndex,
+                    ));
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
+          centerTitle: true,
+          title: Text(
+            "Question",
+            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
-        ],
+          actions: [
+            GestureDetector(
+              onTap: () {
+                AppRoutes.push(context, Coins());
+              },
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 5.0, bottom: 0.0, right: 10.0),
+                    child: Image.asset("assets/img/coin.png",
+                        color: Colors.white,
+                        width: width * .1,
+                        // fit: BoxFit.cover,
+                        height: height * 0.039),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        // "coins : " + coins.toString() + "   ",
+                        "coins : ",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        // "$coins",
+                        "$coins",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "  ",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      )
+                      //                 _scaffoldKey.currentState.showSnackBar(
+                      // SnackBar(content: ""));
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        body: view == 0
+            ? Center(
+                child: QuestionsScreen(
+                    questionIndex: index,
+                    levelIndex: widget.levelIndex,
+                    timerTrigger: () {
+                      setState(() {
+                        displayHint = true;
+                      });
+                    }),
+              )
+            : view == 1
+                ? SubmitAnswer()
+                : view == 2
+                    ? ResultScreen(
+                        correct: true,
+                      )
+                    : view == 3
+                        ? ResultScreen(
+                            correct: false,
+                          )
+                        : view == 5
+                            ? OfferingVendors()
+                            : view == 6
+                                ? VendorOffers()
+                                : null,
+        // drawer: Drawer(
+        //   child: _drawerList(),
+        // ),
       ),
-      body: view == 0
-          ? Center(
-              child: QuestionsScreen(
-                  questionIndex: index,
-                  levelIndex: widget.levelIndex,
-                  timerTrigger: () {
-                    setState(() {
-                      displayHint = true;
-                    });
-                  }),
-            )
-          : view == 1
-              ? SubmitAnswer()
-              : view == 2
-                  ? ResultScreen(
-                      correct: true,
-                    )
-                  : view == 3
-                      ? ResultScreen(
-                          correct: false,
-                        )
-                      : view == 5
-                          ? OfferingVendors()
-                          : view == 6
-                              ? VendorOffers()
-                              : null,
-      // drawer: Drawer(
-      //   child: _drawerList(),
-      // ),
     );
   }
 
