@@ -128,6 +128,7 @@ class ConstValues {
         hintCost) {
       Provider.of<DataProvider>(context, listen: false).deductCoins(hintCost);
       showHint = true;
+      Provider.of<DataProvider>(context, listen: false).gameModel.saveProgress();
     }
     showDialog(
         context: context,
